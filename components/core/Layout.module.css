@@ -1,0 +1,92 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+.topbar {
+  width: 100%;
+  background-color: #ffffff;
+}
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+.container.mini {
+}
+.sidebar {
+  width: 240px;
+  background-color: #ffffff;
+  display: none;
+}
+.content {
+  width: calc(100% - 240px);
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  width: 100%;
+  overflow: auto;
+  height: 100vh;
+}
+.container.mini .sidebar {
+  width: 100px;
+}
+.container.mini .content {
+  width: calc(100% - 100px);
+}
+.bottombar {
+  width: 100%;
+  height: 80px;
+  position: fixed;
+  z-index: 999;
+  bottom: 0;
+}
+
+@media screen and (min-width: 1024px) {
+  .sidebar {
+    display: block;
+  }
+  .content {
+    width: calc(100% - 240px);
+  }
+  .bottombar {
+    display: none;
+  }
+}
+
+/* custom scrollbar */
+@media screen and (min-width: 1024px) {
+  .content {
+    overflow-y: auto !important;
+    transition: all 250ms ease;
+  }
+
+  /* firefox */
+  .content {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    scrollbar-color: #909090 transparent;
+  }
+
+  .content:hover {
+    scrollbar-color: #909090 transparent;
+  }
+
+  /* chrome */
+  .content::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .content::-webkit-scrollbar-track {
+    box-shadow: none;
+  }
+
+  .content::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 10px;
+    /* update */
+    background-color: #909090;
+  }
+
+  .content:hover::-webkit-scrollbar-thumb {
+    background-color: #909090;
+  }
+}
