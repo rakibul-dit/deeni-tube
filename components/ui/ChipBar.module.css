@@ -21,7 +21,7 @@
   background-color: rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.1);
   transition: background-color 0.5s cubic-bezier(0.05, 0, 0, 1);
-  min-width: 12px;
+  min-width: 48px;
   padding: 0 12px;
   border-radius: 16px;
   cursor: pointer;
@@ -39,6 +39,7 @@
   border: none;
   position: relative;
   margin-right: 24px;
+  padding-left: 6px;
 }
 .item.mobile::after {
   content: "";
@@ -58,6 +59,7 @@
   margin-right: 4px;
 }
 .label {
+  font-family: Arial;
   font-size: 14px;
   font-weight: 400;
   line-height: 30px;
@@ -75,6 +77,7 @@
     padding-right: 24px;
   }
   .item {
+    min-width: 12px;
     margin-top: 12px;
     margin-bottom: 12px;
   }
@@ -83,5 +86,8 @@
   }
   .item.active {
     background-color: #030303;
+  }
+  .label {
+    font-family: "Roboto", Arial, sans-serif;
   }
 }
