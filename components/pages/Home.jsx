@@ -13,7 +13,13 @@ const Home = () => {
   return (
     <Layout>
       <div className={styles.wrapper}>
-        <div className={classNames(styles.header, isMini ? styles.mini : "")}>
+        <div
+          className={classNames(
+            styles.header,
+            isMini ? styles.mini : "",
+            "chipbar"
+          )}
+        >
           <ChipBar />
         </div>
 
