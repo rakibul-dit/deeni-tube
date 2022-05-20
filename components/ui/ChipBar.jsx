@@ -1,4 +1,5 @@
 import styles from "./ChipBar.module.css";
+import classNames from "classnames";
 import {
   IonContent,
   IonHeader,
@@ -11,53 +12,68 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { list } from "ionicons/icons";
+import { exploreOutline } from "../../icons";
 
 const tags = [
   {
     title: "Explore",
-    icon: list,
-    url: "/explore",
+    icon: exploreOutline,
+    mobile: true,
   },
   {
     title: "All",
-    url: "/",
+    active: true,
   },
   {
     title: "JavaScript",
-    url: "/",
   },
   {
-    title: "Website",
-    url: "/",
+    title: "User interface design",
   },
   {
     title: "Flutter",
-    url: "/",
   },
   {
     title: "React",
-    url: "/",
   },
   {
     title: "Node",
-    url: "/",
   },
   {
     title: "Python",
-    url: "/",
   },
   {
     title: "PHP",
-    url: "/",
   },
   {
     title: "Lectures",
-    url: "/",
   },
   {
     title: "Laravel",
-    url: "/",
+  },
+  {
+    title: "Java",
+  },
+  {
+    title: "Bodyweight exercise",
+  },
+  {
+    title: "User interface design",
+  },
+  {
+    title: "Flutter",
+  },
+  {
+    title: "React",
+  },
+  {
+    title: "Node",
+  },
+  {
+    title: "Lectures",
+  },
+  {
+    title: "Laravel",
   },
 ];
 
@@ -67,12 +83,11 @@ const ChipBar = () => {
       <ul className={styles.list}>
         {tags.map((t, i) => (
           <li
-            // routerLink={t.url}
-            // routerDirection="none"
-            // detail={false}
-            // lines="none"
             key={i}
-            className={styles.item}
+            className={classNames(
+              styles.item,
+              t.mobile ? styles.mobile : t.active ? styles.active : ""
+            )}
           >
             {t.icon && (
               <IonIcon icon={t.icon} slot="start" className={styles.icon} />

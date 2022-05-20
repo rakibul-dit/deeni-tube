@@ -1,5 +1,6 @@
 import styles from "./Home.module.css";
-import Store from "../../store";
+import classNames from "classnames";
+import Store, { UIStore } from "../../store";
 import { getVideos } from "../../store/selectors";
 import Layout from "../core/Layout";
 import VideoCard from "../cards/Video";
@@ -7,11 +8,12 @@ import ChipBar from "../ui/ChipBar";
 
 const Home = () => {
   const videos = Store.useState(getVideos);
+  const isMini = UIStore.useState((s) => s.isMiniNav);
 
   return (
     <Layout>
       <div className={styles.wrapper}>
-        <div className={styles.header}>
+        <div className={classNames(styles.header, isMini ? styles.mini : "")}>
           <ChipBar />
         </div>
 
