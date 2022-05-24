@@ -13,7 +13,7 @@ import {
 
 import { IonIcon, IonRouterLink } from "@ionic/react";
 
-const Header = () => {
+const Header = ({ controller }) => {
   const isMiniNav = UIStore.useState((s) => s.isMiniNav);
   const handleSidenav = () => {
     toggleMiniNav(!isMiniNav);
@@ -25,7 +25,7 @@ const Header = () => {
         <div className={styles.start}>
           <button
             className={classNames(styles.btn, styles.menu_btn)}
-            onClick={handleSidenav}
+            onClick={controller ? controller : handleSidenav}
           >
             <IonIcon
               icon={menuOutline} //
