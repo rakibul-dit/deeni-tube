@@ -1,27 +1,60 @@
 import classNames from "classnames";
 import styles from "./Video.module.css";
+import { server } from "../../lib/config";
+import { format } from "../../lib/format";
+import { IonRouterLink } from "@ionic/react";
 
-const VideoCard = ({ thumb, avatar, title, channel, views, date }) => {
+const VideoCard = ({
+  id,
+  image,
+  title,
+  publishedAt,
+  channelId,
+  channelTitle,
+  statistics,
+  channelThumbnails,
+}) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <div className={styles.inner}>
           <div className={styles.media}>
-            <div className={styles.thumb}>
-              <img src={thumb} alt="" />
-            </div>
+            <IonRouterLink
+              routerLink={`/watch/${id}`} //
+              className={styles.thumb}
+            >
+              <img
+                src={
+                  image
+                    ? `http://i.ytimg.com/vi/${id}/mqdefault.jpg`
+                    : `${server}/img/youtube/youtube-default.jpg`
+                }
+                alt=""
+              />
+            </IonRouterLink>
 
             <div className={styles.details}>
-              <a className={styles.avatar} href="#">
-                <img src={avatar} alt="" />
-              </a>
+              <IonRouterLink
+                routerLink={`/watch/${id}`} //
+                className={styles.avatar}
+              >
+                <img
+                  src={channelThumbnails ? channelThumbnails[channelId] : ""} //
+                  alt=""
+                />
+              </IonRouterLink>
               <div className={styles.meta}>
-                <h3>{title}</h3>
+                <IonRouterLink routerLink={`/watch/${id}`}>
+                  <h3>{title}</h3>
+                </IonRouterLink>
+
                 <div className={styles.metadata}>
-                  <div className={styles.top}>{channel}</div>
+                  <div className={styles.top}>{channelTitle}</div>
                   <div className={styles.bottom}>
-                    <span>{views} views</span>
-                    <span>{date}</span>
+                    <span>
+                      {statistics ? format.count(statistics[id]) : ""} views
+                    </span>
+                    <span>{format.date(publishedAt)}</span>
                   </div>
                 </div>
               </div>

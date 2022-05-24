@@ -4,6 +4,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
+import Watch from "./pages/Watch";
 
 window
   .matchMedia("(prefers-color-scheme: dark)")
@@ -22,8 +23,7 @@ const App = () => {
         <IonSplitPane contentId="main">
           <IonRouterOutlet id="main">
             <Route exact path="/" render={() => <Home />} />
-            {/* <Route exact path="/page1" render={() => <Page1 />} />
-            <Route exact path="/page2" render={() => <Page2 />} /> */}
+            <Route exact path="/watch/:id" component={Watch} />
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>
