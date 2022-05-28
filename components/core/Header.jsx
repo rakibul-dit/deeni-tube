@@ -13,14 +13,14 @@ import {
 
 import { IonIcon, IonRouterLink } from "@ionic/react";
 
-const Header = ({ controller }) => {
+const Header = ({ layout, controller }) => {
   const isMiniNav = UIStore.useState((s) => s.isMiniNav);
   const handleSidenav = () => {
     toggleMiniNav(!isMiniNav);
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={classNames(styles.wrapper, styles[layout])}>
       <div className={styles.container}>
         <div className={styles.start}>
           <button

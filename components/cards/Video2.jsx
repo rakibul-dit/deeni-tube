@@ -34,15 +34,17 @@ const VideoCard = ({
             </IonRouterLink>
 
             <div className={styles.details}>
-              <IonRouterLink
-                routerLink={`/watch/${id}`} //
+              <a
+                href={`https://www.youtube.com/channel/${channelId}`}
+                target="_blank"
                 className={styles.avatar}
               >
                 <img
                   src={channelThumbnails ? channelThumbnails[channelId] : ""} //
                   alt=""
                 />
-              </IonRouterLink>
+              </a>
+
               <div className={styles.meta}>
                 <IonRouterLink routerLink={`/watch/${id}`}>
                   <h3>{title}</h3>

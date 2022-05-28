@@ -13,29 +13,29 @@ const Layout = ({ children }) => {
   // mobile header scroll effect
   const wrapper = useRef(null);
   const container = useRef(null);
-  const [lastScrollTop, setLastScrollTop] = useState(0);
-  const [scrollTop, setScrollTop] = useState(0);
-  const [didMount, setDidMount] = useState(false);
+  // const [lastScrollTop, setLastScrollTop] = useState(0);
+  // const [scrollTop, setScrollTop] = useState(0);
+  // const [didMount, setDidMount] = useState(false);
 
-  useEffect(() => {
-    setDidMount(true);
+  // useEffect(() => {
+  //   setDidMount(true);
 
-    container.current.onscroll = () => {
-      setScrollTop(container.current.scrollTop);
-    };
+  //   container.current.onscroll = () => {
+  //     setScrollTop(container.current.scrollTop);
+  //   };
 
-    if (scrollTop > lastScrollTop) {
-      wrapper.current.classList.remove("scroll_up");
-      wrapper.current.classList.add("scroll_down");
-    } else {
-      wrapper.current.classList.remove("scroll_down");
-      wrapper.current.classList.add("scroll_up");
-    }
+  //   if (scrollTop > lastScrollTop) {
+  //     wrapper.current.classList.remove("scroll_up");
+  //     wrapper.current.classList.add("scroll_down");
+  //   } else {
+  //     wrapper.current.classList.remove("scroll_down");
+  //     wrapper.current.classList.add("scroll_up");
+  //   }
 
-    setLastScrollTop(scrollTop);
+  //   setLastScrollTop(scrollTop);
 
-    return () => setDidMount(false);
-  }, [scrollTop]);
+  //   return () => setDidMount(false);
+  // }, [scrollTop]);
 
   const [sidenavActive, setSidenavActive] = useState(false);
 
@@ -45,8 +45,8 @@ const Layout = ({ children }) => {
 
   return (
     <div className={styles.wrapper} ref={wrapper}>
-      <div className={classNames(styles.topbar, "header")}>
-        <Header controller={() => handleSidenav(true)} />
+      <div className={styles.topbar}>
+        <Header layout="layout2" controller={() => handleSidenav(true)} />
       </div>
 
       <div className={styles.sidebar}>

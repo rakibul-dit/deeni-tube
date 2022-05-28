@@ -30,11 +30,17 @@
 .icon {
   font-size: 24px;
 }
+.layout2 .icon {
+  color: #fff;
+}
 .logo {
   margin-left: 0;
 }
 .logo svg {
   width: 110px;
+}
+.layout2 .logo svg {
+  fill: #fff;
 }
 .center {
 }
@@ -72,5 +78,12 @@
     width: 500px;
     padding: 0 10px;
     line-height: 38px;
+  }
+
+  .layout2 .icon {
+    color: #030303;
+  }
+  .layout2 .logo svg {
+    fill: #030303;
   }
 }
