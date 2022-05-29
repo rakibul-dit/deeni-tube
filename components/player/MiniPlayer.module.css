@@ -1,0 +1,110 @@
+.wrapper {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .wrapper {
+    display: block;
+    width: 400px;
+    height: 674px;
+    position: fixed;
+    right: 12px;
+    bottom: -455px;
+    top: auto;
+    left: auto;
+    z-index: 2025;
+    transform: translateY(215px);
+    /* pointer-events: none; */
+    opacity: 0;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 20%);
+    transition-property: opacity, bottom, transform;
+    transition-duration: 366ms;
+    transition-timing-function: cubic-bezier(0.05, 0, 0, 1);
+    background-color: #000;
+    overflow: hidden;
+  }
+  .wrapper.active {
+    opacity: 1;
+    bottom: 0;
+    transform: translateY(385px);
+    /* pointer-events: auto; */
+    transition-duration: 0s;
+  }
+  .content {
+    width: 100%;
+    height: 100%;
+  }
+  .player {
+    width: 100%;
+    height: 225px;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .player iframe {
+    width: 100%;
+    height: 100%;
+  }
+
+  .title_area {
+    background-color: #fff;
+    color: #030303;
+    padding: 14px 16px 16px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .title_area h2 {
+    font-family: "Roboto", "Arial", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+    display: box;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: normal;
+    margin-bottom: 4px;
+  }
+  .title_area h3 {
+    word-break: break-all;
+    font-family: "Roboto", "Arial", sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+    max-height: 18px;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+    display: box;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    width: 36px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #fff;
+    border-radius: 4px;
+  }
+  .close .icon {
+    font-size: 21px;
+    color: #fff;
+  }
+}

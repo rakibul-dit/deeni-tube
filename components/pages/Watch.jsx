@@ -6,6 +6,11 @@ import {
   getYoutubeVideoDetailsByUrl,
   getRelatedVideosByUrl,
 } from "../../lib/fetch";
+import {
+  MiniPlayerStore,
+  setMiniPlayerActive,
+  setMiniPlayer,
+} from "../../store";
 import { useState, useEffect, useRef } from "react";
 import {
   likeOutline,
@@ -14,6 +19,7 @@ import {
   dislike,
   ellipsisHorizontal,
   ellipsisVertical,
+  mini,
 } from "../../icons";
 import { IonIcon, IonRouterLink } from "@ionic/react";
 import Layout from "../core/Layout2";
@@ -33,6 +39,8 @@ const getUrl = (previousPageData, relatedToVideoId) => {
 };
 
 const Watch = ({ match }) => {
+  const src = MiniPlayerStore.useState((s) => s.src);
+
   const ref = useRef();
   const isVisible = useOnScreen(ref);
   const [isLoadingMore, setIsloadingMore] = useState(true);
@@ -69,6 +77,11 @@ const Watch = ({ match }) => {
     const fetchData = async () => {
       const res = await getYoutubeVideoDetailsByUrl(url);
       setVideoDetail(res);
+      setMiniPlayer({
+        src: match.params.id,
+        title: res.title,
+        subTitle: res.channelTitle,
+      });
     };
 
     fetchData().catch(console.error);
@@ -138,6 +151,16 @@ const Watch = ({ match }) => {
                         height="100%"
                         src={`https://www.youtube.com/embed/${match.params.id}?autoplay=1&mute=0&enablejsapi=1`}
                       ></iframe>
+                      <button
+                        className={styles.mini_btn}
+                        onClick={() => setMiniPlayerActive(true)}
+                      >
+                        <IonIcon
+                          icon={mini} //
+                          slot="start"
+                          className={styles.mini_icon}
+                        />
+                      </button>
                     </div>
                   </div>
                 </div>

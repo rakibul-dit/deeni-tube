@@ -28,4 +28,25 @@ export const toggleMiniNav = (isActive) => {
   });
 };
 
+export const MiniPlayerStore = new PullStateStore({
+  isActive: false,
+  src: "",
+  title: "",
+  subTitle: "",
+});
+
+export const setMiniPlayerActive = (isActive) => {
+  MiniPlayerStore.update((s) => {
+    s.isActive = isActive;
+  });
+};
+
+export const setMiniPlayer = (obj) => {
+  MiniPlayerStore.update((s) => {
+    s.src = obj.src;
+    s.title = obj.title;
+    s.subTitle = obj.subTitle;
+  });
+};
+
 export default Store;
