@@ -6,6 +6,7 @@ import Header from "./Header";
 import SideNav from "./SideNav";
 // import MiniNav from "./MiniNav";
 // import BottomNav from "./BottomNav";
+import { IonContent } from "@ionic/react";
 
 const Layout = ({ children }) => {
   // const isMini = UIStore.useState((s) => s.isMiniNav);
@@ -44,26 +45,28 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className={styles.wrapper} ref={wrapper}>
-      <div className={styles.topbar}>
-        <Header layout="layout2" controller={() => handleSidenav(true)} />
-      </div>
+    <IonContent>
+      <div className={styles.wrapper} ref={wrapper}>
+        <div className={styles.topbar}>
+          <Header layout="layout2" controller={() => handleSidenav(true)} />
+        </div>
 
-      <div className={styles.sidebar}>
-        <SideNav
-          active={sidenavActive}
-          controller={() => handleSidenav(false)}
-        />
-      </div>
+        <div className={styles.sidebar}>
+          <SideNav
+            active={sidenavActive}
+            controller={() => handleSidenav(false)}
+          />
+        </div>
 
-      {/* <div className={styles.bottombar}>
+        {/* <div className={styles.bottombar}>
         <BottomNav />
       </div> */}
 
-      <div className={styles.container} ref={container}>
-        <div className={styles.content}>{children}</div>
+        <div className={styles.container} ref={container}>
+          <div className={styles.content}>{children}</div>
+        </div>
       </div>
-    </div>
+    </IonContent>
   );
 };
 
