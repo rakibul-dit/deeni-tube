@@ -37,6 +37,7 @@ const VideoCard = ({
               <a
                 href={`https://www.youtube.com/channel/${channelId}`}
                 target="_blank"
+                rel="noreferrer"
                 className={styles.avatar}
               >
                 <img

@@ -117,7 +117,10 @@ const Watch = ({ match }) => {
 
   const urlify = (text) => {
     let urlRegex = /(https?:\/\/[^\s]+)/g;
-    return text.replace(urlRegex, '<a href="$1" target="_blank">$1</a>');
+    return text.replace(
+      urlRegex,
+      '<a href="$1" target="_blank" rel="noreferrer">$1</a>'
+    );
   };
 
   const parser = (text) => {
@@ -225,6 +228,7 @@ const Watch = ({ match }) => {
                     <a
                       href={`https://www.youtube.com/channel/${videoDetail.channelId}`}
                       target="_blank"
+                      rel="noreferrer"
                       className={styles.avatar}
                     >
                       <img
@@ -236,6 +240,7 @@ const Watch = ({ match }) => {
                     <a
                       href={`https://www.youtube.com/channel/${videoDetail.channelId}`}
                       target="_blank"
+                      rel="noreferrer"
                       className={styles.c_title}
                     >
                       {videoDetail.channelTitle}
