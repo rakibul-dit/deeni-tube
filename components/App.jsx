@@ -6,6 +6,7 @@ import { Redirect, Route } from "react-router-dom";
 import MiniPlayer from "./player/MiniPlayer";
 import Home from "./pages/Home";
 import Watch from "./pages/Watch";
+import Search from "./pages/Search";
 
 window
   .matchMedia("(prefers-color-scheme: dark)")
@@ -26,6 +27,7 @@ const App = () => {
           <IonRouterOutlet id="main">
             <Route exact path="/" render={() => <Home />} />
             <Route exact path="/watch/:id" component={Watch} />
+            <Route exact path="/search" component={Search} />
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>

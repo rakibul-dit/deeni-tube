@@ -36,6 +36,9 @@
   background-color: #f9f9f9;
   overflow-y: auto;
 }
+.wrapper.search .container {
+  padding-top: 48px;
+}
 .content {
   width: 100%;
 }

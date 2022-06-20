@@ -8,7 +8,7 @@ import MiniNav from "./MiniNav";
 import BottomNav from "./BottomNav";
 import { IonContent } from "@ionic/react";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, page }) => {
   const isMini = UIStore.useState((s) => s.isMiniNav);
 
   // mobile header scroll effect
@@ -42,7 +42,7 @@ const Layout = ({ children }) => {
 
   return (
     <IonContent>
-      <div className={styles.wrapper} ref={wrapper}>
+      <div className={classNames(styles.wrapper, styles[page])} ref={wrapper}>
         <div className={classNames(styles.topbar, "header")}>
           <Header />
         </div>

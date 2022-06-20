@@ -152,7 +152,7 @@ const Watch = ({ match }) => {
                         // title={title}
                         width="100%"
                         height="100%"
-                        src={`https://www.youtube.com/embed/${match.params.id}?autoplay=1&mute=0&enablejsapi=1`}
+                        src={`https://www.youtube.com/embed/${match.params.id}?modestbranding=1&showinfo=0&autoplay=1&mute=0&enablejsapi=1&showsearch=0&rel=0&iv_load_policy=3&autohide=1`}
                       ></iframe>
                       <button
                         className={styles.mini_btn}
