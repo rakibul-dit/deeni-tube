@@ -12,6 +12,7 @@ import {
   searchOutline,
   appsOutline,
   close,
+  arrowLeft,
 } from "../../icons";
 
 import { IonIcon, IonRouterLink } from "@ionic/react";
@@ -24,7 +25,6 @@ const Header = ({ layout, controller }) => {
 
   const history = useHistory();
   const inputWrapper = useRef(null);
-  const inputRef = useRef(null);
   const hiddenIcon = useRef(null);
   const closeIcon = useRef(null);
 
@@ -49,6 +49,7 @@ const Header = ({ layout, controller }) => {
     if (key == "") {
       return false;
     }
+    // handleMobileSearch(false);
     const href = "/search?key=" + key;
     history.replace(href);
   };
@@ -60,12 +61,19 @@ const Header = ({ layout, controller }) => {
   useEffect(() => {
     if (key === "") {
       closeIcon.current.classList.remove(styles.show);
-      console.log("key");
     } else {
       closeIcon.current.classList.add(styles.show);
-      console.log(key);
     }
   }, [key]);
+
+  const mobileSearch = useRef(null);
+  const backdrop = useRef(null);
+
+  const handleMobileSearch = (open) => {
+    open
+      ? mobileSearch.current.classList.add(styles.show)
+      : mobileSearch.current.classList.remove(styles.show);
+  };
 
   return (
     <div className={classNames(styles.wrapper, styles[layout])}>
@@ -106,7 +114,6 @@ const Header = ({ layout, controller }) => {
                 type="text"
                 name="search"
                 placeholder="Search"
-                ref={inputRef}
                 onChange={handleChange}
                 onFocus={handleFocusIn}
                 onBlur={handleFocusOut}
@@ -132,7 +139,10 @@ const Header = ({ layout, controller }) => {
         </div>
 
         <div className={styles.end}>
-          <button className={classNames(styles.btn, styles.show_on_mobile)}>
+          <button
+            className={classNames(styles.btn, styles.show_on_mobile)}
+            onClick={() => handleMobileSearch(true)}
+          >
             <IonIcon
               icon={searchOutline} //
               slot="start"
@@ -154,6 +164,46 @@ const Header = ({ layout, controller }) => {
             />
           </button>
         </div>
+      </div>
+      {/* mobile search */}
+      <div className={styles.m_search} ref={mobileSearch}>
+        <form
+          className={styles.m_search_form}
+          action=""
+          method="GET"
+          onSubmit={handleSubmit}
+        >
+          <button
+            className={styles.m_search_icon}
+            type="button"
+            onClick={() => handleMobileSearch(false)}
+          >
+            <IonIcon
+              icon={arrowLeft} //
+              slot="start"
+              className={classNames(styles.back_icon)}
+            />
+          </button>
+          <input
+            type="text"
+            name="search"
+            placeholder="Search DeeniTube"
+            onChange={handleChange}
+            value={key}
+          />
+          <button className={styles.m_search_icon} type="submit">
+            <IonIcon
+              icon={searchOutline} //
+              slot="start"
+              className={styles.m_submit_icon}
+            />
+          </button>
+        </form>
+        <div
+          className={styles.m_search_backdrop}
+          ref={backdrop}
+          onClick={() => handleMobileSearch(false)}
+        ></div>
       </div>
     </div>
   );

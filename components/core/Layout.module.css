@@ -11,7 +11,7 @@
   left: 0;
   right: 0;
   height: 48px;
-  z-index: 99;
+  z-index: 999;
 }
 .sidebar {
   display: none;
