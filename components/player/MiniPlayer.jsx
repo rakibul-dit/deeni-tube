@@ -21,7 +21,7 @@ const MiniPlayer = () => {
             // title={title}
             width="100%"
             height="100%"
-            src={`https://www.youtube.com/embed/${src}?autoplay=1&mute=0&enablejsapi=1`}
+            src={`https://www.youtube.com/embed/${src}?autoplay=1&mute=1&enablejsapi=1`}
           ></iframe>
         </div>
         <div className={styles.title_area}>

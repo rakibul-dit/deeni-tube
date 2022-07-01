@@ -5,6 +5,7 @@ import { format } from "../../lib/format";
 import {
   getYoutubeVideoDetailsByUrl,
   getRelatedVideosByUrl,
+  getCommentThreadsByUrl,
 } from "../../lib/fetch";
 import {
   MiniPlayerStore,
@@ -82,6 +83,20 @@ const Watch = ({ match }) => {
         title: res.title,
         subTitle: res.channelTitle,
       });
+    };
+
+    fetchData().catch(console.error);
+  }, [match.params.id]);
+
+  const [comments, setComments] = useState({});
+
+  useEffect(() => {
+    const url = `${youtube.url}/commentThreads?key=${youtube.key}&part=snippet&videoId=${match.params.id}`;
+
+    const fetchData = async () => {
+      const res = await getCommentThreadsByUrl(url);
+      setComments(res);
+      console.log(res);
     };
 
     fetchData().catch(console.error);
@@ -250,6 +265,76 @@ const Watch = ({ match }) => {
                     {parse(parser(videoDetail.description))}
                   </div>
                 </div>
+              </div>
+              <div className={styles.comments}>
+                <h2 className={styles.comment_title}>Comments</h2>
+                {comments &&
+                  comments.length &&
+                  comments.map((comment, index) => (
+                    <div className={styles.comments_item} key={index}>
+                      <div className={styles.comments_avatar}>
+                        <img
+                          src={
+                            comment.snippet.topLevelComment.snippet
+                              .authorProfileImageUrl
+                          }
+                          alt=""
+                        />
+                      </div>
+                      <div className={styles.comments_detail}>
+                        <div className={styles.comment_top}>
+                          <h2>
+                            {
+                              comment.snippet.topLevelComment.snippet
+                                .authorDisplayName
+                            }
+                          </h2>
+                          <p>
+                            {format.date(
+                              comment.snippet.topLevelComment.snippet
+                                .publishedAt
+                            )}
+                          </p>
+                        </div>
+                        <div className={styles.comment}>
+                          <p>
+                            {parse(
+                              comment.snippet.topLevelComment.snippet
+                                .textDisplay
+                            )}
+                          </p>
+                        </div>
+                        <div className={styles.comment_bottom}>
+                          <div className={styles.comment_action}>
+                            <div className={styles.c_icon}>
+                              <IonIcon
+                                icon={likeOutline} //
+                                slot="start"
+                                className={styles.icon}
+                              />
+                              <span>
+                                {comment.snippet.topLevelComment.snippet
+                                  .likeCount
+                                  ? comment.snippet.topLevelComment.snippet
+                                      .likeCount
+                                  : ""}
+                              </span>
+                            </div>
+                          </div>
+                          <div className={styles.comment_action}>
+                            <div className={styles.c_icon}>
+                              <IonIcon
+                                icon={dislikeOutline} //
+                                slot="start"
+                                className={styles.icon}
+                              />
+                              <span></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
