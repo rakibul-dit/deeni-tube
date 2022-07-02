@@ -69,7 +69,7 @@
   font-size: 18px;
   line-height: 23px;
   font-weight: 400;
-  display: box;
+  /* display: box; */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;

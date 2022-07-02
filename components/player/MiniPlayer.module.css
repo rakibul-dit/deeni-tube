@@ -67,7 +67,7 @@
     font-weight: 500;
     overflow: hidden;
     -webkit-line-clamp: 1;
-    display: box;
+    /* display: box; */
     display: -webkit-box;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
@@ -83,7 +83,7 @@
     max-height: 18px;
     overflow: hidden;
     -webkit-line-clamp: 1;
-    display: box;
+    /* display: box; */
     display: -webkit-box;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;

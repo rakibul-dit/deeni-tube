@@ -71,10 +71,10 @@
   color: #030303;
   line-height: 18px;
   font-weight: 500;
-  max-height: 44px;
+  max-height: 48px;
   overflow: hidden;
   -webkit-line-clamp: 2;
-  display: box;
+  /* display: box; */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
@@ -103,7 +103,7 @@
   /* max-height: 44px; */
   overflow: hidden;
   -webkit-line-clamp: 1;
-  display: box;
+  /* display: box; */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
