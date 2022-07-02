@@ -663,3 +663,35 @@
     display: none;
   }
 }
+
+/* expandable */
+.expandable {
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+}
+.expandable.expanded {
+  height: auto;
+}
+.expandable_text {
+}
+.expandable_btn {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #f9f9f9;
+  padding-top: 16px;
+}
+.expandable_btn button {
+  color: #606060;
+  display: block;
+  margin-top: 8px;
+  text-transform: uppercase;
+  font-family: "Roboto", "Arial", sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+}
+.expandable.expanded .expandable_btn {
+  position: relative;
+}

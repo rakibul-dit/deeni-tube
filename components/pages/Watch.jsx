@@ -167,6 +167,17 @@ const Watch = ({ match }) => {
       : commentsModal.current.classList.remove(styles.show);
   };
 
+  // expandable
+  const expandable = useRef(null);
+  const [expanded, setExpanded] = useState(false);
+  const [overflow, setOverflow] = useState(true);
+
+  useEffect(() => {
+    expandable.current.offsetHeight < expandable.current.scrollHeight
+      ? setOverflow(true)
+      : setOverflow(false);
+  }, [videoDetail]);
+
   return (
     <Layout>
       <div className={styles.wrapper}>
@@ -292,7 +303,31 @@ const Watch = ({ match }) => {
                       styles.show_on_web
                     )}
                   >
-                    {parse(parser(videoDetail.description))}
+                    <div
+                      className={classNames(
+                        styles.expandable,
+                        expanded ? styles.expanded : ""
+                      )}
+                      ref={expandable}
+                    >
+                      <div className={styles.expandable_text}>
+                        {parse(parser(videoDetail.description))}
+                      </div>
+                      {overflow && !expanded && (
+                        <div className={styles.expandable_btn}>
+                          <button onClick={() => setExpanded(true)}>
+                            SHOW MORE
+                          </button>
+                        </div>
+                      )}
+                      {overflow && expanded && (
+                        <div className={styles.expandable_btn}>
+                          <button onClick={() => setExpanded(false)}>
+                            SHOW LESS
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
