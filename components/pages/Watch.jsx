@@ -21,6 +21,9 @@ import {
   ellipsisHorizontal,
   ellipsisVertical,
   mini,
+  angleDown,
+  close,
+  angleDouble,
 } from "../../icons";
 import { IonIcon, IonRouterLink } from "@ionic/react";
 import Layout from "../core/Layout2";
@@ -150,6 +153,20 @@ const Watch = ({ match }) => {
     return res;
   };
 
+  const descModal = useRef(null);
+  const handleDescriptionModal = (open) => {
+    open
+      ? descModal.current.classList.add(styles.show)
+      : descModal.current.classList.remove(styles.show);
+  };
+
+  const commentsModal = useRef(null);
+  const handleCommentsModal = (open) => {
+    open
+      ? commentsModal.current.classList.add(styles.show)
+      : commentsModal.current.classList.remove(styles.show);
+  };
+
   return (
     <Layout>
       <div className={styles.wrapper}>
@@ -183,59 +200,68 @@ const Watch = ({ match }) => {
                   </div>
                 </div>
               </div>
-
               <div className={styles.detail}>
                 <div className={styles.title_area}>
-                  <h2 className={styles.title}>{videoDetail.title}</h2>
-                  <div className={styles.meta_area}>
-                    <div className={styles.left}>
-                      <div className={styles.meta}>
-                        <span>
-                          {videoDetail.viewCount &&
-                            format.count(videoDetail.viewCount)}{" "}
-                          views
-                        </span>
-                        <span>
-                          {videoDetail.publishedAt &&
-                            format.date(videoDetail.publishedAt)}
-                        </span>
-                      </div>
-                    </div>
-                    <div className={styles.right}>
-                      <div className={styles.actions}>
-                        <div className={styles.action} title="I like this">
-                          <IonIcon
-                            icon={likeOutline} //
-                            slot="start"
-                            className={styles.icon}
-                          />
+                  <div className={styles.title_area_left}>
+                    <h2 className={styles.title}>{videoDetail.title}</h2>
+                    <div className={styles.meta_area}>
+                      <div className={styles.meta_left}>
+                        <div className={styles.meta}>
                           <span>
-                            {videoDetail.likeCount > 0
-                              ? format.count(videoDetail.likeCount)
-                              : "0"}
+                            {videoDetail.viewCount &&
+                              format.count(videoDetail.viewCount)}{" "}
+                            views
+                          </span>
+                          <span>
+                            {videoDetail.publishedAt &&
+                              format.date(videoDetail.publishedAt)}
                           </span>
                         </div>
-                        <div className={styles.action} title="I dislike this">
-                          <IonIcon
-                            icon={dislikeOutline} //
-                            slot="start"
-                            className={styles.icon}
-                          />
-                          <span>
-                            {videoDetail.dislikeCount > 0
-                              ? videoDetail.dislikeCount
-                              : "0"}
-                          </span>
-                        </div>
-                        <div className={styles.action}>
-                          <IonIcon
-                            icon={ellipsisHorizontal} //
-                            slot="start"
-                            className={styles.icon}
-                          />
+                      </div>
+                      <div className={styles.meta_right}>
+                        <div className={styles.actions}>
+                          <div className={styles.action} title="I like this">
+                            <IonIcon
+                              icon={likeOutline} //
+                              slot="start"
+                              className={styles.icon}
+                            />
+                            <span>
+                              {videoDetail.likeCount > 0
+                                ? format.count(videoDetail.likeCount)
+                                : "0"}
+                            </span>
+                          </div>
+                          <div className={styles.action} title="I dislike this">
+                            <IonIcon
+                              icon={dislikeOutline} //
+                              slot="start"
+                              className={styles.icon}
+                            />
+                            <span>
+                              {videoDetail.dislikeCount > 0
+                                ? videoDetail.dislikeCount
+                                : "0"}
+                            </span>
+                          </div>
+                          <div className={styles.action}>
+                            <IonIcon
+                              icon={ellipsisHorizontal} //
+                              slot="start"
+                              className={styles.icon}
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div className={styles.title_area_right}>
+                    <IonIcon
+                      icon={angleDown} //
+                      slot="start"
+                      className={styles.icon}
+                      onClick={() => handleDescriptionModal(true)}
+                    />
                   </div>
                 </div>
                 <div className={styles.desc_area}>
@@ -251,7 +277,6 @@ const Watch = ({ match }) => {
                         alt=""
                       />
                     </a>
-
                     <a
                       href={`https://www.youtube.com/channel/${videoDetail.channelId}`}
                       target="_blank"
@@ -261,80 +286,36 @@ const Watch = ({ match }) => {
                       {videoDetail.channelTitle}
                     </a>
                   </div>
-                  <div className={styles.description}>
+                  <div
+                    className={classNames(
+                      styles.description,
+                      styles.show_on_web
+                    )}
+                  >
                     {parse(parser(videoDetail.description))}
                   </div>
                 </div>
               </div>
-              <div className={styles.comments}>
-                <h2 className={styles.comment_title}>Comments</h2>
-                {comments &&
-                  comments.length &&
-                  comments.map((comment, index) => (
-                    <div className={styles.comments_item} key={index}>
-                      <div className={styles.comments_avatar}>
-                        <img
-                          src={
-                            comment.snippet.topLevelComment.snippet
-                              .authorProfileImageUrl
-                          }
-                          alt=""
-                        />
-                      </div>
-                      <div className={styles.comments_detail}>
-                        <div className={styles.comment_top}>
-                          <h2>
-                            {
-                              comment.snippet.topLevelComment.snippet
-                                .authorDisplayName
-                            }
-                          </h2>
-                          <p>
-                            {format.date(
-                              comment.snippet.topLevelComment.snippet
-                                .publishedAt
-                            )}
-                          </p>
-                        </div>
-                        <div className={styles.comment}>
-                          <p>
-                            {parse(
-                              comment.snippet.topLevelComment.snippet
-                                .textDisplay
-                            )}
-                          </p>
-                        </div>
-                        <div className={styles.comment_bottom}>
-                          <div className={styles.comment_action}>
-                            <div className={styles.c_icon}>
-                              <IonIcon
-                                icon={likeOutline} //
-                                slot="start"
-                                className={styles.icon}
-                              />
-                              <span>
-                                {comment.snippet.topLevelComment.snippet
-                                  .likeCount
-                                  ? comment.snippet.topLevelComment.snippet
-                                      .likeCount
-                                  : ""}
-                              </span>
-                            </div>
-                          </div>
-                          <div className={styles.comment_action}>
-                            <div className={styles.c_icon}>
-                              <IonIcon
-                                icon={dislikeOutline} //
-                                slot="start"
-                                className={styles.icon}
-                              />
-                              <span></span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+              <div className={styles.comments_wrap}>
+                <div className={styles.comment_title_area}>
+                  <h2 className={styles.comment_title}>Comments</h2>
+                  <div className={styles.comment_icon}>
+                    <IonIcon
+                      icon={angleDouble} //
+                      slot="start"
+                      className={styles.icon}
+                      onClick={() => handleCommentsModal(true)}
+                    />
+                  </div>
+                </div>
+                <div
+                  className={classNames(
+                    styles.comments_content,
+                    styles.show_on_web
+                  )}
+                >
+                  <Comments comments={comments} />
+                </div>
               </div>
             </div>
           </div>
@@ -360,7 +341,116 @@ const Watch = ({ match }) => {
           </div>
         </div>
       </div>
+
+      <div className={styles.modal} ref={descModal}>
+        <div className={styles.modal_backdrop}></div>
+        <div className={styles.modal_content}>
+          <div className={styles.modal_title_area}>
+            <h2 className={styles.modal_title}>Description</h2>
+            <div className={styles.modal_icon}>
+              <IonIcon
+                icon={close} //
+                slot="start"
+                className={styles.icon}
+                onClick={() => handleDescriptionModal(false)}
+              />
+            </div>
+          </div>
+          <div className={styles.modal_desc}>
+            <div className={styles.desc_title}>
+              <h2>{videoDetail.title}</h2>
+            </div>
+            <div className={styles.description}>
+              {parse(parser(videoDetail.description))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.modal} ref={commentsModal}>
+        <div className={styles.modal_backdrop}></div>
+        <div className={styles.modal_content}>
+          <div className={styles.modal_title_area}>
+            <h2 className={styles.modal_title}>Comments</h2>
+            <div className={styles.modal_icon}>
+              <IonIcon
+                icon={close} //
+                slot="start"
+                className={styles.icon}
+                onClick={() => handleCommentsModal(false)}
+              />
+            </div>
+          </div>
+          <div className={styles.modal_desc}>
+            <Comments comments={comments} />
+          </div>
+        </div>
+      </div>
     </Layout>
+  );
+};
+
+const Comments = ({ comments }) => {
+  return (
+    <div className={styles.comments}>
+      {comments &&
+        comments.length &&
+        comments.map((comment, index) => (
+          <div className={styles.comments_item} key={index}>
+            <div className={styles.comments_avatar}>
+              <img
+                src={
+                  comment.snippet.topLevelComment.snippet.authorProfileImageUrl
+                }
+                alt=""
+              />
+            </div>
+            <div className={styles.comments_detail}>
+              <div className={styles.comment_top}>
+                <h2>
+                  {comment.snippet.topLevelComment.snippet.authorDisplayName}
+                </h2>
+                <p>
+                  {format.date(
+                    comment.snippet.topLevelComment.snippet.publishedAt
+                  )}
+                </p>
+              </div>
+              <div className={styles.comment}>
+                <p>
+                  {parse(comment.snippet.topLevelComment.snippet.textDisplay)}
+                </p>
+              </div>
+              <div className={styles.comment_bottom}>
+                <div className={styles.comment_action}>
+                  <div className={styles.c_icon}>
+                    <IonIcon
+                      icon={likeOutline} //
+                      slot="start"
+                      className={styles.icon}
+                    />
+                    <span>
+                      {comment.snippet.topLevelComment.snippet.likeCount
+                        ? comment.snippet.topLevelComment.snippet.likeCount
+                        : ""}
+                    </span>
+                  </div>
+                </div>
+                <div className={styles.comment_action}>
+                  <div className={styles.c_icon}>
+                    <IonIcon
+                      icon={dislikeOutline} //
+                      slot="start"
+                      className={styles.icon}
+                    />
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+    </div>
   );
 };
 

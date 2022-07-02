@@ -1,5 +1,7 @@
 exports.sample = 'data:image/svg+xml;utf8,';
 
+exports.angleDouble = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><path d="M12,21.7l-6.4-6.4l0.7-0.7l5.6,5.6l5.6-5.6l0.7,0.7L12,21.7z M18.4,8.6L12,2.3L5.6,8.6l0.7,0.7L12,3.7l5.6,5.6L18.4,8.6z"></path></svg>';
+
 exports.arrowLeft = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><path d="M21,11v1H5.64l6.72,6.72l-0.71,0.71L3.72,11.5l7.92-7.92l0.71,0.71L5.64,11H21z"></path></svg>';
 
 exports.expand = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/></svg>';
