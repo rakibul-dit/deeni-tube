@@ -49,4 +49,29 @@ export const setMiniPlayer = (obj) => {
   });
 };
 
+// popup
+export const PopupStore = new PullStateStore({
+  open: false,
+  reference: document.body,
+  videoId: null,
+});
+
+export const setPopupOpen = (open) => {
+  PopupStore.update((s) => {
+    s.open = open;
+  });
+};
+
+export const setPopupReference = (reference) => {
+  PopupStore.update((s) => {
+    s.reference = reference;
+  });
+};
+
+export const setPopupVideoId = (videoId) => {
+  PopupStore.update((s) => {
+    s.videoId = videoId;
+  });
+};
+
 export default Store;

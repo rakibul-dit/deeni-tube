@@ -4,6 +4,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router-dom";
 
 import MiniPlayer from "./player/MiniPlayer";
+import Popup from "./utils/PopupPrimary";
 import Home from "./pages/Home";
 import Watch from "./pages/Watch";
 import Search from "./pages/Search";
@@ -24,6 +25,7 @@ const App = () => {
       <IonReactRouter>
         <IonSplitPane contentId="main">
           <MiniPlayer />
+          <Popup />
           <IonRouterOutlet id="main">
             <Route exact path="/" render={() => <Home />} />
             <Route exact path="/watch/:id" component={Watch} />

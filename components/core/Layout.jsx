@@ -1,6 +1,6 @@
 import styles from "./Layout.module.css";
 import classNames from "classnames";
-import { UIStore } from "../../store";
+import { UIStore, PopupStore } from "../../store";
 import { useState, useEffect, useRef } from "react";
 import Header from "./Header";
 import Nav from "./Nav";
@@ -28,6 +28,24 @@ const Layout = ({ children, page }) => {
       instance.removeEventListener("scroll", setScroll);
     };
   }, []);
+
+  // disable scroll but keep scrollbar visible
+  const popupOpen = PopupStore.useState((s) => s.open);
+
+  useEffect(() => {
+    const instance = container.current; // declare first otherwise remove listener throw error
+    const preventScroll = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    };
+    if (popupOpen) {
+      instance.addEventListener("wheel", preventScroll);
+    }
+    return () => {
+      instance.removeEventListener("wheel", preventScroll);
+    };
+  }, [popupOpen]);
 
   useEffect(() => {
     if (scrollTop > lastScrollTop) {
