@@ -166,7 +166,9 @@ const Popup = () => {
                         className={styles.icon}
                       />
                     </div>
-                    <p className={styles.item_label}>Don't recommend channel</p>
+                    <p className={styles.item_label}>
+                      Don&apos;t recommend channel
+                    </p>
                   </div>
                 </li>
                 <li className={styles.item}>
@@ -204,7 +206,9 @@ const Popup = () => {
                 </li>
                 <li className={styles.item}>
                   <div className={styles.item_inner}>
-                    <p className={styles.item_label}>Don't recommend channel</p>
+                    <p className={styles.item_label}>
+                      Don&apos;t recommend channel
+                    </p>
                   </div>
                 </li>
                 <li className={styles.item}>
