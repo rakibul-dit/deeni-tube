@@ -1,6 +1,6 @@
 import styles from "./Layout2.module.css";
 import classNames from "classnames";
-// import { UIStore } from "../../store";
+import { UIStore, PopupStore } from "../../store";
 import { useState, useEffect, useRef } from "react";
 import Header from "./Header";
 import SideNav from "./SideNav";
@@ -43,6 +43,24 @@ const Layout = ({ children }) => {
   const handleSidenav = (active) => {
     setSidenavActive(active);
   };
+
+  // disable scroll but keep scrollbar visible
+  const popupOpen = PopupStore.useState((s) => s.open);
+
+  useEffect(() => {
+    const instance = container.current; // declare first otherwise remove listener throw error
+    const preventScroll = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    };
+    if (popupOpen) {
+      instance.addEventListener("wheel", preventScroll);
+    }
+    return () => {
+      instance.removeEventListener("wheel", preventScroll);
+    };
+  }, [popupOpen]);
 
   return (
     <IonContent>

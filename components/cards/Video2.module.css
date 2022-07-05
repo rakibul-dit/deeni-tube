@@ -71,9 +71,19 @@
 }
 .meta {
   overflow: hidden;
-  width: calc(100% - 96px);
+  width: calc(100% - 48px);
 }
-.meta h3 {
+.meta_top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+.title {
+  display: block;
+  width: calc(100% - 40px);
+}
+.title h3 {
   font-family: "Roboto", "Arial", sans-serif;
   font-size: 14px;
   color: #030303;
@@ -88,6 +98,29 @@
   text-overflow: ellipsis;
   white-space: normal;
   margin: 12px 0 3px 0;
+}
+.popup_button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  right: 0;
+  top: 4px;
+}
+.popup_button .icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+.popup_ref {
+  position: absolute;
+  top: -16px;
+  right: 8px;
+  width: 40px;
+  height: 56px;
+  visibility: hidden;
 }
 .metadata {
   display: flex;
@@ -168,6 +201,39 @@
     margin-top: 0;
     margin-bottom: 4px;
   }
+  .title {
+    width: calc(100% - 24px);
+  }
+  .popup_button {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    right: 0;
+    top: 0;
+    visibility: hidden;
+    opacity: 0;
+  }
+  .wrapper:hover .popup_button,
+  .popup_button.active {
+    visibility: visible;
+    opacity: 1;
+  }
+  .popup_button .icon {
+    width: 24px;
+    height: 24px;
+  }
+  .popup_ref {
+    position: absolute;
+    top: -16px;
+    right: 8px;
+    width: 40px;
+    height: 56px;
+    visibility: hidden;
+  }
+
   .metadata {
     flex-direction: column;
     font-family: "Roboto", "Arial", sans-serif;
