@@ -1,7 +1,12 @@
 import styles from "./PopupPrimary.module.css";
 import classNames from "classnames";
 import { useState, useEffect, useRef } from "react";
-import { PopupStore, setPopupOpen } from "../../store";
+import {
+  PopupStore,
+  setPopupOpen,
+  setPopupReference,
+  setPopupVideoId,
+} from "../../store";
 import { IonIcon, IonContent } from "@ionic/react";
 import {
   queue,
@@ -53,38 +58,49 @@ const Popup = () => {
     });
 
     setIsOpen(open);
+  }, [reference, open]);
+
+  useEffect(() => {
+    const instanceOfPopup = popupRef.current;
+    const instanceOfMobilePopupContent = mobilePopupContentRef.current;
 
     const addClickEventOnBody = () => {
       setPopupOpen(false);
+      setPopupReference(document.body);
+      setPopupVideoId(null);
+      return false;
     };
 
     const addClickEventOnPopup = (e) => {
       e.stopPropagation();
+      return false;
     };
 
     document.body.addEventListener("click", addClickEventOnBody);
-    popupRef.current.addEventListener("click", addClickEventOnPopup);
-    mobilePopupContentRef.current.addEventListener(
+    instanceOfPopup.addEventListener("click", addClickEventOnPopup);
+    instanceOfMobilePopupContent.addEventListener(
       "click",
       addClickEventOnPopup
     );
 
     return () => {
       document.body.removeEventListener("click", addClickEventOnBody);
-      popupRef.current.removeEventListener("click", addClickEventOnPopup);
-      mobilePopupContentRef.current.removeEventListener(
+      instanceOfPopup.removeEventListener("click", addClickEventOnPopup);
+      instanceOfMobilePopupContent.removeEventListener(
         "click",
         addClickEventOnPopup
       );
     };
-  }, [reference, open]);
+  }, []);
 
   return (
     <>
       <div className={classNames(styles.popup_container, styles.web)}>
         <div
           style={{
-            display: isOpen ? "block" : "none",
+            // display: isOpen ? "block" : "none",
+            display: "block",
+            visibility: isOpen ? "visible" : "hidden",
             top: pos.top,
             left: pos.left,
             right: pos.right,
