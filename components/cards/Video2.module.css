@@ -195,14 +195,14 @@
   .meta {
     width: 100%;
   }
-  .meta h3 {
+  .title {
+    width: calc(100% - 24px);
+  }
+  .title h3 {
     font-size: 14px;
     line-height: 20px;
     margin-top: 0;
     margin-bottom: 4px;
-  }
-  .title {
-    width: calc(100% - 24px);
   }
   .popup_button {
     width: 24px;
@@ -220,10 +220,6 @@
   .popup_button.active {
     visibility: visible;
     opacity: 1;
-  }
-  .popup_button .icon {
-    width: 24px;
-    height: 24px;
   }
   .popup_ref {
     position: absolute;
