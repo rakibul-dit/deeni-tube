@@ -32,6 +32,7 @@ import ChipBar from "../ui/ChipBar";
 import Loader from "../utils/Loader";
 import useOnScreen from "../../hooks/useOnScreen";
 import parse from "html-react-parser";
+import SwipeablePanel from "../utils/SwipeablePanel";
 
 const getUrl = (previousPageData, relatedToVideoId) => {
   let pageToken = "";
@@ -153,18 +154,14 @@ const Watch = ({ match }) => {
     return res;
   };
 
-  const descModal = useRef(null);
+  const [descModalOpen, setDescModalOpen] = useState(false);
   const handleDescriptionModal = (open) => {
-    open
-      ? descModal.current.classList.add(styles.show)
-      : descModal.current.classList.remove(styles.show);
+    setDescModalOpen(open);
   };
 
-  const commentsModal = useRef(null);
+  const [commentsModalOpen, setCommentsModalOpen] = useState(false);
   const handleCommentsModal = (open) => {
-    open
-      ? commentsModal.current.classList.add(styles.show)
-      : commentsModal.current.classList.remove(styles.show);
+    setCommentsModalOpen(open);
   };
 
   // expandable
@@ -377,50 +374,26 @@ const Watch = ({ match }) => {
         </div>
       </div>
 
-      <div className={styles.modal} ref={descModal}>
-        <div className={styles.modal_backdrop}></div>
-        <div className={styles.modal_content}>
-          <div className={styles.modal_title_area}>
-            <h2 className={styles.modal_title}>Description</h2>
-            <div className={styles.modal_icon}>
-              <IonIcon
-                icon={close} //
-                slot="start"
-                className={styles.icon}
-                onClick={() => handleDescriptionModal(false)}
-              />
-            </div>
-          </div>
-          <div className={styles.modal_desc}>
-            <div className={styles.desc_title}>
-              <h2>{videoDetail.title}</h2>
-            </div>
-            <div className={styles.description}>
-              {parse(parser(videoDetail.description))}
-            </div>
-          </div>
+      <SwipeablePanel
+        title="Description"
+        open={descModalOpen}
+        controller={handleDescriptionModal}
+      >
+        <div className={styles.desc_title}>
+          <h2>{videoDetail.title}</h2>
         </div>
-      </div>
+        <div className={styles.description}>
+          {parse(parser(videoDetail.description))}
+        </div>
+      </SwipeablePanel>
 
-      <div className={styles.modal} ref={commentsModal}>
-        <div className={styles.modal_backdrop}></div>
-        <div className={styles.modal_content}>
-          <div className={styles.modal_title_area}>
-            <h2 className={styles.modal_title}>Comments</h2>
-            <div className={styles.modal_icon}>
-              <IonIcon
-                icon={close} //
-                slot="start"
-                className={styles.icon}
-                onClick={() => handleCommentsModal(false)}
-              />
-            </div>
-          </div>
-          <div className={styles.modal_desc}>
-            <Comments comments={comments} />
-          </div>
-        </div>
-      </div>
+      <SwipeablePanel
+        title="Comments"
+        open={commentsModalOpen}
+        controller={handleCommentsModal}
+      >
+        <Comments comments={comments} />
+      </SwipeablePanel>
     </Layout>
   );
 };

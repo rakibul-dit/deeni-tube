@@ -557,74 +557,6 @@
   }
 }
 
-/* description modal on mobile */
-.modal {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: calc(56.25vw + 48px);
-  z-index: 9;
-}
-.modal.show {
-  display: block;
-}
-.modal_backdrop {
-  background-color: #000;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-.modal_content {
-  background-color: #fff;
-  border-radius: 12px 12px 0 0;
-  padding-top: 12px;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-.modal_title_area {
-  padding: 17px 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  z-index: 3;
-  position: relative;
-}
-.modal_title {
-  margin: 0;
-  font-size: 14px;
-  line-height: 14px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-}
-.modal_icon {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: 12px;
-  top: auto;
-  bottom: 0;
-  padding: 12px;
-}
-.modal_icon .icon {
-  width: 24px;
-  height: 24px;
-  color: #606060;
-}
-.modal_desc {
-  height: calc(100% - 61px);
-  overflow: auto;
-}
-
 /* description modal */
 .desc_title {
   display: block;
@@ -635,16 +567,9 @@
 }
 .desc_title h2 {
   padding: 4px 0;
-  font-size: 15px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 500;
   line-height: 20px;
-}
-
-@media screen and (min-width: 1024px) {
-  .modal,
-  .modal.show {
-    display: none;
-  }
 }
 
 /* responsive */
