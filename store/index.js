@@ -74,4 +74,38 @@ export const setPopupVideoId = (videoId) => {
   });
 };
 
+// preview
+export const PreviewStore = new PullStateStore({
+  open: false,
+  reference: document.body,
+  video: {
+    id: null,
+    image: null,
+    title: null,
+    publishedAt: null,
+    channelId: null,
+    channelTitle: null,
+    statistics: null,
+    channelThumbnails: null,
+  },
+});
+
+export const setPreviewOpen = (open) => {
+  PreviewStore.update((s) => {
+    s.open = open;
+  });
+};
+
+export const setPreviewReference = (reference) => {
+  PreviewStore.update((s) => {
+    s.reference = reference;
+  });
+};
+
+export const setPreviewVideo = (video) => {
+  PreviewStore.update((s) => {
+    s.video = video;
+  });
+};
+
 export default Store;

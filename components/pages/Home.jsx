@@ -9,6 +9,7 @@ import VideoCard from "../cards/Video";
 import ChipBar from "../ui/ChipBar";
 import Loader from "../utils/Loader";
 import useOnScreen from "../../hooks/useOnScreen";
+import Previewer from "../utils/Previewer";
 
 const getUrl = (previousPageData, playlistId) => {
   let pageToken = "";
@@ -78,6 +79,8 @@ const Home = () => {
 
   return (
     <Layout>
+      <Previewer />
+
       <div className={styles.wrapper}>
         <div
           className={classNames(

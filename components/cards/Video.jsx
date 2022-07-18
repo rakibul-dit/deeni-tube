@@ -10,6 +10,10 @@ import {
   setPopupOpen,
   setPopupReference,
   setPopupVideoId,
+  PreviewStore,
+  setPreviewOpen,
+  setPreviewReference,
+  setPreviewVideo,
 } from "../../store";
 
 const VideoCard = ({
@@ -41,6 +45,39 @@ const VideoCard = ({
     }
   }, [open, reference]);
 
+  // preview
+  const previewOpen = PreviewStore.useState((s) => s.open);
+  const previewReference = PreviewStore.useState((s) => s.reference);
+  const previewRef = useRef(null);
+
+  const handlePreviewOnHover = (e, hover) => {
+    // e.stopPropagation();
+    if (hover) {
+      setPreviewReference(previewRef.current);
+      setPreviewVideo({
+        id,
+        image,
+        title,
+        publishedAt,
+        channelId,
+        channelTitle,
+        statistics,
+        channelThumbnails,
+      });
+      setPreviewOpen(true);
+    } else {
+      setPreviewOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (previewOpen && previewReference == previewRef.current) {
+      previewRef.current.classList.add(styles.active);
+    } else {
+      previewRef.current.classList.remove(styles.active);
+    }
+  }, [previewOpen, previewReference]);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
@@ -57,6 +94,9 @@ const VideoCard = ({
                     : `${server}/img/youtube/youtube-default.jpg`
                 }
                 alt=""
+                ref={previewRef}
+                onMouseEnter={(e) => handlePreviewOnHover(e, true)}
+                onMouseLeave={(e) => handlePreviewOnHover(e, false)}
               />
             </IonRouterLink>
 
