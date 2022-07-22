@@ -88,6 +88,7 @@ export const PreviewStore = new PullStateStore({
     statistics: null,
     channelThumbnails: null,
   },
+  container: document.body,
 });
 
 export const setPreviewOpen = (open) => {
@@ -105,6 +106,12 @@ export const setPreviewReference = (reference) => {
 export const setPreviewVideo = (video) => {
   PreviewStore.update((s) => {
     s.video = video;
+  });
+};
+
+export const setPreviewContainer = (container) => {
+  PreviewStore.update((s) => {
+    s.container = container;
   });
 };
 

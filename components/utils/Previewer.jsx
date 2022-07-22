@@ -28,6 +28,7 @@ const Previewer = () => {
   const open = PreviewStore.useState((s) => s.open);
   const reference = PreviewStore.useState((s) => s.reference);
   const video = PreviewStore.useState((s) => s.video);
+  const container = PreviewStore.useState((s) => s.container);
 
   const [pos, setPos] = useState({
     top: 0,
@@ -44,19 +45,33 @@ const Previewer = () => {
   const mobilePreviewContentRef = useRef(null);
 
   useEffect(() => {
+    setIsOpen(false); // reset first
     const refElem = reference.getBoundingClientRect();
+    const containerElem = container.getBoundingClientRect();
 
     setPos({
-      top: refElem.top,
-      left: refElem.left,
-      right: "auto",
+      top: refElem.top - 12,
+      left:
+        refElem.left - containerElem.left < 40 // should around 12 but 40 for security
+          ? refElem.left - 12
+          : containerElem.right - refElem.right < 40
+          ? "auto"
+          : refElem.left -
+            (reference.offsetWidth * (142.29 / 100) - reference.offsetWidth) /
+              2,
+      right:
+        containerElem.right - refElem.right < 40
+          ? window.innerWidth - refElem.right - 12
+          : "auto",
       bottom: "auto",
     });
 
     setWidth(reference.offsetWidth * (142.29 / 100));
 
-    setIsOpen(open);
-  }, [reference, open]);
+    setTimeout(() => {
+      setIsOpen(open);
+    }, 400);
+  }, [reference, open, container]);
 
   useEffect(() => {
     const instanceOfPreview = PreviewRef.current;
@@ -127,8 +142,16 @@ const Previewer = () => {
               // title={title}
               width="100%"
               height="100%"
-              src={`https://www.youtube.com/embed/${video.id}?modestbranding=1&showinfo=0&autoplay=1&mute=0&enablejsapi=1&showsearch=0&rel=0&iv_load_policy=3&autohide=1`}
+              src={`https://www.youtube.com/embed/${video.id}?modestbranding=1&showinfo=0&autoplay=1&mute=1&enablejsapi=1&showsearch=0&rel=0&iv_load_policy=3&autohide=1`}
             ></iframe>
+            <div className={styles.player_wrapper}>
+              <IonRouterLink
+                routerLink={`/watch/${video.id}`} //
+                className={styles.player_link}
+              >
+                <span>Nothing</span>
+              </IonRouterLink>
+            </div>
           </div>
 
           <div className={styles.details}>

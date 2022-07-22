@@ -1,6 +1,6 @@
 import styles from "./Home.module.css";
 import classNames from "classnames";
-import { UIStore } from "../../store";
+import { UIStore, setPreviewContainer } from "../../store";
 import { youtube, constants } from "../../lib/config";
 import { getAllPlaylists2, getYoutubeVideoListByUrl } from "../../lib/fetch";
 import { useState, useEffect, useRef } from "react";
@@ -77,6 +77,12 @@ const Home = () => {
     // console.log(isVisible, isLoadingMore);
   }, [isVisible, isLoadingMore]);
 
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    setPreviewContainer(containerRef.current);
+  }, []);
+
   return (
     <Layout>
       <Previewer />
@@ -93,7 +99,7 @@ const Home = () => {
         </div>
 
         <div className={styles.container}>
-          <div className={styles.content}>
+          <div className={styles.content} ref={containerRef}>
             {data.videos.map((video, index) => (
               <div className={styles.item} key={index}>
                 <VideoCard
