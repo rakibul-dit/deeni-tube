@@ -4,7 +4,7 @@ import { server } from "../../lib/config";
 import { format } from "../../lib/format";
 import { IonRouterLink, IonIcon } from "@ionic/react";
 import { ellipsisVertical } from "../../icons";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import {
   PopupStore,
   setPopupOpen,
@@ -50,22 +50,29 @@ const VideoCard = ({
   const previewReference = PreviewStore.useState((s) => s.reference);
   const previewRef = useRef(null);
 
-  const handlePreviewOnHover = (e, hover) => {
+  const [timeout, updateTimeout] = useState(null);
+
+  const handlePreviewOnHover = (hover) => {
     // e.stopPropagation();
     if (hover) {
-      setPreviewReference(previewRef.current);
-      setPreviewVideo({
-        id,
-        image,
-        title,
-        publishedAt,
-        channelId,
-        channelTitle,
-        statistics,
-        channelThumbnails,
-      });
-      setPreviewOpen(true);
+      updateTimeout(
+        setTimeout(() => {
+          setPreviewReference(previewRef.current);
+          setPreviewVideo({
+            id,
+            image,
+            title,
+            publishedAt,
+            channelId,
+            channelTitle,
+            statistics,
+            channelThumbnails,
+          });
+          setPreviewOpen(true);
+        }, 1000)
+      );
     } else {
+      clearTimeout(timeout);
       setPreviewOpen(false);
     }
   };
@@ -95,8 +102,8 @@ const VideoCard = ({
                 }
                 alt=""
                 ref={previewRef}
-                onMouseEnter={(e) => handlePreviewOnHover(e, true)}
-                onMouseLeave={(e) => handlePreviewOnHover(e, false)}
+                onMouseEnter={() => handlePreviewOnHover(true)}
+                onMouseLeave={() => handlePreviewOnHover(false)}
               />
             </IonRouterLink>
 
