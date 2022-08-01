@@ -8,6 +8,7 @@ import Popup from "./utils/PopupPrimary";
 import Home from "./pages/Home";
 import Watch from "./pages/Watch";
 import Search from "./pages/Search";
+import Channels from "./pages/Channels";
 
 window
   .matchMedia("(prefers-color-scheme: dark)")
@@ -30,6 +31,7 @@ const App = () => {
             <Route exact path="/" render={() => <Home />} />
             <Route exact path="/watch/:id" component={Watch} />
             <Route exact path="/search" component={Search} />
+            <Route exact path="/channels" component={Channels} />
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>

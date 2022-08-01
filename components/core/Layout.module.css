@@ -38,6 +38,7 @@
 }
 .wrapper.search .container {
   padding-top: 48px;
+  background-color: #fff;
 }
 .content {
   width: 100%;
@@ -75,6 +76,9 @@
   .container {
     padding-left: 240px;
     padding-top: calc(56px + 56px - 4px);
+  }
+  .wrapper.search .container {
+    background-color: #f9f9f9;
   }
   .container.mini {
     padding-left: 72px;
