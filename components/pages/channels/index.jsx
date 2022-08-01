@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import classNames from "classnames";
 import { IonContent, IonList, IonItem } from "@ionic/react";
-import { UIStore } from "../../store";
-import Layout from "../core/Layout";
-import ChannelCard from "../cards/Channel";
-import styles from "./Channels.module.css";
+import { UIStore } from "../../../store";
+import Layout from "../../core/Layout";
+import ChannelCard from "../../cards/Channel";
+import styles from "./index.module.css";
 
 const data = [
   {

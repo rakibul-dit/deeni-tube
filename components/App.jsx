@@ -8,7 +8,11 @@ import Popup from "./utils/PopupPrimary";
 import Home from "./pages/Home";
 import Watch from "./pages/Watch";
 import Search from "./pages/Search";
-import Channels from "./pages/Channels";
+import Channels from "./pages/channels";
+import ChannelHome from "./pages/channels/Home";
+import ChannelVideos from "./pages/channels/Videos";
+import ChannelPlaylists from "./pages/channels/Playlists";
+import ChannelAbout from "./pages/channels/About";
 
 window
   .matchMedia("(prefers-color-scheme: dark)")
@@ -32,6 +36,35 @@ const App = () => {
             <Route exact path="/watch/:id" component={Watch} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/channels" component={Channels} />
+            <Route
+              exact
+              path="/channels/:id/home"
+              render={(props) => <ChannelHome id={props.match.params.id} />}
+            />
+            <Route
+              exact
+              path="/channels/:id/videos"
+              render={(props) => <ChannelVideos id={props.match.params.id} />}
+            />
+            <Route
+              exact
+              path="/channels/:id/playlists"
+              render={(props) => (
+                <ChannelPlaylists id={props.match.params.id} />
+              )}
+            />
+            <Route
+              exact
+              path="/channels/:id/about"
+              render={(props) => <ChannelAbout id={props.match.params.id} />}
+            />
+            <Route
+              exact
+              path="/channels/:id"
+              render={(props) => (
+                <Redirect to={`/channels/${props.match.params.id}/home`} />
+              )}
+            />
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>

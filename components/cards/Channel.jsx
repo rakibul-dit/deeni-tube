@@ -88,7 +88,7 @@ const ChannelCard = ({
   return (
     <div className={styles.wrapper}>
       <IonRouterLink
-        routerLink={`/watch/${id}`} //
+        routerLink={`/channels/${id}`} //
         className={styles.container}
       >
         <div className={styles.content}>
