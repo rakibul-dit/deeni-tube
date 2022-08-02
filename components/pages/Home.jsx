@@ -84,7 +84,7 @@ const Home = () => {
   }, []);
 
   return (
-    <Layout>
+    <>
       <Previewer />
 
       <div className={styles.wrapper}>
@@ -116,7 +116,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 

@@ -1,19 +1,42 @@
-import styles from "./Layout.module.css";
+import { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import { IonContent, IonPage } from "@ionic/react";
 import classNames from "classnames";
 import { UIStore, PopupStore } from "../../store";
-import { useState, useEffect, useRef } from "react";
 import Header from "./Header";
 import Nav from "./Nav";
 import MiniNav from "./MiniNav";
 import BottomNav from "./BottomNav";
-import { IonContent } from "@ionic/react";
+import Player from "../player";
+import Popup from "../utils/PopupPrimary";
+import styles from "./Layout.module.css";
 
-const Layout = ({ children, page }) => {
+const Layout = ({ children }) => {
   const isMini = UIStore.useState((s) => s.isMiniNav);
-
-  // mobile header scroll effect
   const wrapper = useRef(null);
   const container = useRef(null);
+
+  const location = useLocation();
+  const [path, setPath] = useState("/");
+  const [type, setType] = useState("type1");
+
+  useEffect(() => {
+    setPath(location.pathname);
+  }, [location]);
+
+  useEffect(() => {
+    if (path === "/") {
+      setType("type1");
+      wrapper.current.classList.add(styles.type1);
+    } else {
+      setType("type2");
+      wrapper.current.classList.add(styles.type2);
+    }
+    console.log(type);
+  }, [path]);
+
+  // mobile header scroll effect
+
   const [lastScrollTop, setLastScrollTop] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   // const [didMount, setDidMount] = useState(false);
@@ -59,8 +82,9 @@ const Layout = ({ children, page }) => {
   }, [scrollTop]);
 
   return (
-    <IonContent>
-      <div className={classNames(styles.wrapper, styles[page])} ref={wrapper}>
+    <IonPage>
+      <Popup />
+      <div className={classNames(styles.wrapper, styles[type])} ref={wrapper}>
         <div className={classNames(styles.topbar, "header")}>
           <Header />
         </div>
@@ -87,10 +111,38 @@ const Layout = ({ children, page }) => {
           className={classNames(styles.container, isMini ? styles.mini : "")}
           ref={container}
         >
-          <div className={styles.content}>{children}</div>
+          <div className={styles.content}>
+            <div className={styles.primary}>
+              <div className={styles.player}>
+                <Player />
+              </div>
+              <div className={styles.page}>{children}</div>
+            </div>
+
+            <div className={styles.secondary}>
+              {/* <div className={styles.secondary_inner}>
+                <h3 className={styles.more_item}>Up next</h3>
+                <div className={styles.related_container}>
+                  {data.videos.map((video, index) => (
+                    <div className={styles.related_item} key={index}>
+                      <VideoCard
+                        {...video}
+                        statistics={data.videoStats}
+                        channelThumbnails={data.channels}
+                      />
+                    </div>
+                  ))}
+
+                  <div ref={ref} className={styles.loader}>
+                    {isLoadingMore && <Loader />}
+                  </div>
+                </div>
+              </div> */}
+            </div>
+          </div>
         </div>
       </div>
-    </IonContent>
+    </IonPage>
   );
 };
 

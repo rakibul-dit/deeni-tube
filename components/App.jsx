@@ -2,9 +2,9 @@ import { IonApp, IonRouterOutlet, IonSplitPane } from "@ionic/react";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router-dom";
-
-import MiniPlayer from "./player/MiniPlayer";
-import Popup from "./utils/PopupPrimary";
+import Layout from "./core/Layout";
+// import MiniPlayer from "./player/MiniPlayer";
+// import Popup from "./utils/PopupPrimary";
 import Home from "./pages/Home";
 import Watch from "./pages/Watch";
 import Search from "./pages/Search";
@@ -28,44 +28,44 @@ const App = () => {
   return (
     <IonApp>
       <IonReactRouter>
-        <IonSplitPane contentId="main">
-          <MiniPlayer />
-          <Popup />
-          <IonRouterOutlet id="main">
-            <Route exact path="/" render={() => <Home />} />
-            <Route exact path="/watch/:id" component={Watch} />
-            <Route exact path="/search" component={Search} />
-            <Route exact path="/channels" component={Channels} />
-            <Route
-              exact
-              path="/channels/:id/home"
-              render={(props) => <ChannelHome id={props.match.params.id} />}
-            />
-            <Route
-              exact
-              path="/channels/:id/videos"
-              render={(props) => <ChannelVideos id={props.match.params.id} />}
-            />
-            <Route
-              exact
-              path="/channels/:id/playlists"
-              render={(props) => (
-                <ChannelPlaylists id={props.match.params.id} />
-              )}
-            />
-            <Route
-              exact
-              path="/channels/:id/about"
-              render={(props) => <ChannelAbout id={props.match.params.id} />}
-            />
-            <Route
-              exact
-              path="/channels/:id"
-              render={(props) => (
-                <Redirect to={`/channels/${props.match.params.id}/home`} />
-              )}
-            />
-          </IonRouterOutlet>
+        <IonSplitPane contentId="main" style={{ height: "100%" }}>
+          <Layout>
+            <IonRouterOutlet id="main" style={{ position: "relative" }}>
+              <Route exact path="/" render={() => <Home />} />
+              <Route exact path="/watch/:id" component={Watch} />
+              <Route exact path="/search" component={Search} />
+              <Route exact path="/channels" component={Channels} />
+              <Route
+                exact
+                path="/channels/:id/home"
+                render={(props) => <ChannelHome id={props.match.params.id} />}
+              />
+              <Route
+                exact
+                path="/channels/:id/videos"
+                render={(props) => <ChannelVideos id={props.match.params.id} />}
+              />
+              <Route
+                exact
+                path="/channels/:id/playlists"
+                render={(props) => (
+                  <ChannelPlaylists id={props.match.params.id} />
+                )}
+              />
+              <Route
+                exact
+                path="/channels/:id/about"
+                render={(props) => <ChannelAbout id={props.match.params.id} />}
+              />
+              <Route
+                exact
+                path="/channels/:id"
+                render={(props) => (
+                  <Redirect to={`/channels/${props.match.params.id}/home`} />
+                )}
+              />
+            </IonRouterOutlet>
+          </Layout>
         </IonSplitPane>
       </IonReactRouter>
     </IonApp>

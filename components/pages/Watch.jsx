@@ -34,20 +34,20 @@ import useOnScreen from "../../hooks/useOnScreen";
 import parse from "html-react-parser";
 import SwipeablePanel from "../utils/SwipeablePanel";
 
-const getUrl = (previousPageData, relatedToVideoId) => {
-  let pageToken = "";
-  if (previousPageData !== null && previousPageData.nextPageToken !== null) {
-    pageToken = `&pageToken=${previousPageData.nextPageToken}`;
-  }
+// const getUrl = (previousPageData, relatedToVideoId) => {
+//   let pageToken = "";
+//   if (previousPageData !== null && previousPageData.nextPageToken !== null) {
+//     pageToken = `&pageToken=${previousPageData.nextPageToken}`;
+//   }
 
-  return `${youtube.url}/search?key=${youtube.key}&part=snippet&relatedToVideoId=${relatedToVideoId}&maxResults=${constants.DEFAULT_PAGE_LIMIT}&type=video${pageToken}`;
-};
+//   return `${youtube.url}/search?key=${youtube.key}&part=snippet&relatedToVideoId=${relatedToVideoId}&maxResults=${constants.DEFAULT_PAGE_LIMIT}&type=video${pageToken}`;
+// };
 
 const Watch = ({ match }) => {
   const src = MiniPlayerStore.useState((s) => s.src);
 
   const ref = useRef();
-  const isVisible = useOnScreen(ref);
+  // const isVisible = useOnScreen(ref);
   const [isLoadingMore, setIsloadingMore] = useState(true);
 
   const [data, setData] = useState({
@@ -58,21 +58,21 @@ const Watch = ({ match }) => {
     channels: {},
   });
 
-  useEffect(() => {
-    const url = getUrl(data, match.params.id);
+  // useEffect(() => {
+  //   const url = getUrl(data, match.params.id);
 
-    const fetchData = async () => {
-      const res = await getRelatedVideosByUrl(url);
-      // const playlists = await getAllPlaylists2();
+  //   const fetchData = async () => {
+  //     const res = await getRelatedVideosByUrl(url);
+  //     // const playlists = await getAllPlaylists2();
 
-      setData(res);
-      setIsloadingMore(false);
-    };
+  //     setData(res);
+  //     setIsloadingMore(false);
+  //   };
 
-    fetchData().catch(console.error);
+  //   fetchData().catch(console.error);
 
-    // console.log(data);
-  }, [match.params.id]);
+  //   // console.log(data);
+  // }, [match.params.id]);
 
   const [videoDetail, setVideoDetail] = useState({});
 
@@ -106,33 +106,33 @@ const Watch = ({ match }) => {
     fetchData().catch(console.error);
   }, [match.params.id]);
 
-  useEffect(() => {
-    if (isVisible && !isLoadingMore && data.nextPageToken) {
-      setIsloadingMore(true);
+  // useEffect(() => {
+  //   if (isVisible && !isLoadingMore && data.nextPageToken) {
+  //     setIsloadingMore(true);
 
-      const url = getUrl(data, match.params.id);
+  //     const url = getUrl(data, match.params.id);
 
-      const fetchData = async () => {
-        const res = await getRelatedVideosByUrl(url);
-        // const playlists = await getAllPlaylists2();
+  //     const fetchData = async () => {
+  //       const res = await getRelatedVideosByUrl(url);
+  //       // const playlists = await getAllPlaylists2();
 
-        const newData = {
-          nextPageToken: res.nextPageToken,
-          numberOfPages: res.numberOfPages,
-          videos: data.videos.concat(res.videos),
-          videoStats: { ...data.videoStats, ...res.videoStats },
-          channels: { ...data.channels, ...res.channels },
-        };
+  //       const newData = {
+  //         nextPageToken: res.nextPageToken,
+  //         numberOfPages: res.numberOfPages,
+  //         videos: data.videos.concat(res.videos),
+  //         videoStats: { ...data.videoStats, ...res.videoStats },
+  //         channels: { ...data.channels, ...res.channels },
+  //       };
 
-        setData(newData);
-        setIsloadingMore(false);
-      };
+  //       setData(newData);
+  //       setIsloadingMore(false);
+  //     };
 
-      fetchData().catch(console.error);
-    }
+  //     fetchData().catch(console.error);
+  //   }
 
-    // console.log(isVisible, isLoadingMore);
-  }, [isVisible, isLoadingMore]);
+  //   // console.log(isVisible, isLoadingMore);
+  // }, [isVisible, isLoadingMore]);
 
   const urlify = (text) => {
     let urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -176,199 +176,146 @@ const Watch = ({ match }) => {
   }, [videoDetail]);
 
   return (
-    <Layout>
+    <>
       <div className={styles.wrapper}>
-        <div className={styles.columns}>
-          <div className={styles.primary}>
-            <div className={styles.primary_inner}>
-              <div id="player" className={styles.player}>
-                <div className={styles.player_outer}>
-                  <div className={styles.player_inner}>
-                    <div className={styles.player_container}>
-                      <iframe
-                        frameBorder="0"
-                        // allowFullScreen="1"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; fullscreen; picture-in-picture"
-                        // title={title}
-                        width="100%"
-                        height="100%"
-                        src={`https://www.youtube.com/embed/${match.params.id}?modestbranding=1&showinfo=0&autoplay=1&mute=0&enablejsapi=1&showsearch=0&rel=0&iv_load_policy=3&autohide=1`}
-                      ></iframe>
-                      <button
-                        className={styles.mini_btn}
-                        onClick={() => setMiniPlayerActive(true)}
-                      >
+        <div className={styles.primary_inner}>
+          <div id="player" className={styles.player}></div>
+          <div className={styles.detail}>
+            <div className={styles.title_area}>
+              <div className={styles.title_area_left}>
+                <h2 className={styles.title}>{videoDetail.title}</h2>
+                <div className={styles.meta_area}>
+                  <div className={styles.meta_left}>
+                    <div className={styles.meta}>
+                      <span>
+                        {videoDetail.viewCount &&
+                          format.count(videoDetail.viewCount)}{" "}
+                        views
+                      </span>
+                      <span>
+                        {videoDetail.publishedAt &&
+                          format.date(videoDetail.publishedAt)}
+                      </span>
+                    </div>
+                  </div>
+                  <div className={styles.meta_right}>
+                    <div className={styles.actions}>
+                      <div className={styles.action} title="I like this">
                         <IonIcon
-                          icon={mini} //
+                          icon={likeOutline} //
                           slot="start"
-                          className={styles.mini_icon}
+                          className={styles.icon}
                         />
-                      </button>
+                        <span>
+                          {videoDetail.likeCount > 0
+                            ? format.count(videoDetail.likeCount)
+                            : "0"}
+                        </span>
+                      </div>
+                      <div className={styles.action} title="I dislike this">
+                        <IonIcon
+                          icon={dislikeOutline} //
+                          slot="start"
+                          className={styles.icon}
+                        />
+                        <span>
+                          {videoDetail.dislikeCount > 0
+                            ? videoDetail.dislikeCount
+                            : "0"}
+                        </span>
+                      </div>
+                      <div className={styles.action}>
+                        <IonIcon
+                          icon={ellipsisHorizontal} //
+                          slot="start"
+                          className={styles.icon}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className={styles.detail}>
-                <div className={styles.title_area}>
-                  <div className={styles.title_area_left}>
-                    <h2 className={styles.title}>{videoDetail.title}</h2>
-                    <div className={styles.meta_area}>
-                      <div className={styles.meta_left}>
-                        <div className={styles.meta}>
-                          <span>
-                            {videoDetail.viewCount &&
-                              format.count(videoDetail.viewCount)}{" "}
-                            views
-                          </span>
-                          <span>
-                            {videoDetail.publishedAt &&
-                              format.date(videoDetail.publishedAt)}
-                          </span>
-                        </div>
-                      </div>
-                      <div className={styles.meta_right}>
-                        <div className={styles.actions}>
-                          <div className={styles.action} title="I like this">
-                            <IonIcon
-                              icon={likeOutline} //
-                              slot="start"
-                              className={styles.icon}
-                            />
-                            <span>
-                              {videoDetail.likeCount > 0
-                                ? format.count(videoDetail.likeCount)
-                                : "0"}
-                            </span>
-                          </div>
-                          <div className={styles.action} title="I dislike this">
-                            <IonIcon
-                              icon={dislikeOutline} //
-                              slot="start"
-                              className={styles.icon}
-                            />
-                            <span>
-                              {videoDetail.dislikeCount > 0
-                                ? videoDetail.dislikeCount
-                                : "0"}
-                            </span>
-                          </div>
-                          <div className={styles.action}>
-                            <IonIcon
-                              icon={ellipsisHorizontal} //
-                              slot="start"
-                              className={styles.icon}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className={styles.title_area_right}>
-                    <IonIcon
-                      icon={angleDown} //
-                      slot="start"
-                      className={styles.icon}
-                      onClick={() => handleDescriptionModal(true)}
-                    />
-                  </div>
-                </div>
-                <div className={styles.desc_area}>
-                  <div className={styles.channel}>
-                    <a
-                      href={`https://www.youtube.com/channel/${videoDetail.channelId}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={styles.avatar}
-                    >
-                      <img
-                        src={videoDetail ? videoDetail.channelAvatar : ""} //
-                        alt=""
-                      />
-                    </a>
-                    <a
-                      href={`https://www.youtube.com/channel/${videoDetail.channelId}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={styles.c_title}
-                    >
-                      {videoDetail.channelTitle}
-                    </a>
-                  </div>
-                  <div
-                    className={classNames(
-                      styles.description,
-                      styles.show_on_web
-                    )}
-                  >
-                    <div
-                      className={classNames(
-                        styles.expandable,
-                        expanded ? styles.expanded : ""
-                      )}
-                      ref={expandable}
-                    >
-                      <div className={styles.expandable_text}>
-                        {parse(parser(videoDetail.description))}
-                      </div>
-                      {overflow && !expanded && (
-                        <div className={styles.expandable_btn}>
-                          <button onClick={() => setExpanded(true)}>
-                            SHOW MORE
-                          </button>
-                        </div>
-                      )}
-                      {overflow && expanded && (
-                        <div className={styles.expandable_btn}>
-                          <button onClick={() => setExpanded(false)}>
-                            SHOW LESS
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
+              <div className={styles.title_area_right}>
+                <IonIcon
+                  icon={angleDown} //
+                  slot="start"
+                  className={styles.icon}
+                  onClick={() => handleDescriptionModal(true)}
+                />
               </div>
-              <div className={styles.comments_wrap}>
-                <div className={styles.comment_title_area}>
-                  <h2 className={styles.comment_title}>Comments</h2>
-                  <div className={styles.comment_icon}>
-                    <IonIcon
-                      icon={angleDouble} //
-                      slot="start"
-                      className={styles.icon}
-                      onClick={() => handleCommentsModal(true)}
-                    />
-                  </div>
-                </div>
+            </div>
+            <div className={styles.desc_area}>
+              <div className={styles.channel}>
+                <a
+                  href={`https://www.youtube.com/channel/${videoDetail.channelId}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.avatar}
+                >
+                  <img
+                    src={videoDetail ? videoDetail.channelAvatar : ""} //
+                    alt=""
+                  />
+                </a>
+                <a
+                  href={`https://www.youtube.com/channel/${videoDetail.channelId}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.c_title}
+                >
+                  {videoDetail.channelTitle}
+                </a>
+              </div>
+              <div
+                className={classNames(styles.description, styles.show_on_web)}
+              >
                 <div
                   className={classNames(
-                    styles.comments_content,
-                    styles.show_on_web
+                    styles.expandable,
+                    expanded ? styles.expanded : ""
                   )}
+                  ref={expandable}
                 >
-                  <Comments comments={comments} />
+                  <div className={styles.expandable_text}>
+                    {parse(parser(videoDetail.description))}
+                  </div>
+                  {overflow && !expanded && (
+                    <div className={styles.expandable_btn}>
+                      <button onClick={() => setExpanded(true)}>
+                        SHOW MORE
+                      </button>
+                    </div>
+                  )}
+                  {overflow && expanded && (
+                    <div className={styles.expandable_btn}>
+                      <button onClick={() => setExpanded(false)}>
+                        SHOW LESS
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           </div>
-          <div className={styles.secondary}>
-            <div className={styles.secondary_inner}>
-              <h3 className={styles.more_item}>Up next</h3>
-              <div className={styles.related_container}>
-                {data.videos.map((video, index) => (
-                  <div className={styles.related_item} key={index}>
-                    <VideoCard
-                      {...video}
-                      statistics={data.videoStats}
-                      channelThumbnails={data.channels}
-                    />
-                  </div>
-                ))}
-
-                <div ref={ref} className={styles.loader}>
-                  {isLoadingMore && <Loader />}
-                </div>
+          <div className={styles.comments_wrap}>
+            <div className={styles.comment_title_area}>
+              <h2 className={styles.comment_title}>Comments</h2>
+              <div className={styles.comment_icon}>
+                <IonIcon
+                  icon={angleDouble} //
+                  slot="start"
+                  className={styles.icon}
+                  onClick={() => handleCommentsModal(true)}
+                />
               </div>
+            </div>
+            <div
+              className={classNames(
+                styles.comments_content,
+                styles.show_on_web
+              )}
+            >
+              <Comments comments={comments} />
             </div>
           </div>
         </div>
@@ -394,7 +341,7 @@ const Watch = ({ match }) => {
       >
         <Comments comments={comments} />
       </SwipeablePanel>
-    </Layout>
+    </>
   );
 };
 

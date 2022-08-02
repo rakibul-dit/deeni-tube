@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
 import classNames from "classnames";
 import { UIStore } from "../../store";
@@ -17,7 +18,23 @@ import {
 
 import { IonIcon, IonRouterLink } from "@ionic/react";
 
-const Header = ({ layout, controller }) => {
+const Header = ({ controller }) => {
+  const location = useLocation();
+  const [path, setPath] = useState("/");
+  const [layout, setLayout] = useState("layout1");
+
+  useEffect(() => {
+    setPath(location.pathname);
+  }, [location]);
+
+  useEffect(() => {
+    if (path === "/") {
+      setLayout("layout1");
+    } else {
+      setLayout("layout2");
+    }
+  }, [path]);
+
   const isMiniNav = UIStore.useState((s) => s.isMiniNav);
   const handleSidenav = () => {
     toggleMiniNav(!isMiniNav);

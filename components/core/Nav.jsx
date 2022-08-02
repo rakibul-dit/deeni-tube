@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { IonIcon, IonItem, IonLabel, IonList } from "@ionic/react";
+import { IonIcon, IonLabel, IonRouterLink } from "@ionic/react";
 
 import {
   home,
@@ -149,28 +149,31 @@ const MenuList = ({ pages }) => {
   }, [location]);
 
   return (
-    <IonList className={styles.list}>
+    <div className={styles.list}>
       {pages.map((p, i) => (
-        <IonItem
+        <IonRouterLink
           routerLink={p.url}
           routerDirection="none"
           detail={false}
           lines="none"
           key={i}
-          className={classNames(
-            styles.item,
-            p.url === path ? styles.active : ""
-          )}
         >
-          <IonIcon
-            icon={p.url === path ? p.icon : p.iconOutline}
-            slot="start"
-            className={styles.icon}
-          />
-          <IonLabel className={styles.label}>{p.title}</IonLabel>
-        </IonItem>
+          <div
+            className={classNames(
+              styles.item,
+              p.url === path ? styles.active : ""
+            )}
+          >
+            <IonIcon
+              icon={p.url === path ? p.icon : p.iconOutline}
+              slot="start"
+              className={styles.icon}
+            />
+            <IonLabel className={styles.label}>{p.title}</IonLabel>
+          </div>
+        </IonRouterLink>
       ))}
-    </IonList>
+    </div>
   );
 };
 

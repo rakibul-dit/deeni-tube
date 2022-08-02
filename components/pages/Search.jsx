@@ -101,26 +101,24 @@ const Search = () => {
   }, [isVisible, isLoadingMore]);
 
   return (
-    <Layout page="search">
-      <div className={styles.wrapper}>
-        <div className={styles.container}>
-          <div className={styles.content}>
-            {data.videos.map((video, index) => (
-              <div className={styles.item} key={index}>
-                <VideoCard
-                  {...video}
-                  statistics={data.videoStats}
-                  channelThumbnails={data.channels}
-                />
-              </div>
-            ))}
-            <div ref={ref} className={styles.loader}>
-              {isLoadingMore && <Loader />}
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        <div className={styles.content}>
+          {data.videos.map((video, index) => (
+            <div className={styles.item} key={index}>
+              <VideoCard
+                {...video}
+                statistics={data.videoStats}
+                channelThumbnails={data.channels}
+              />
             </div>
+          ))}
+          <div ref={ref} className={styles.loader}>
+            {isLoadingMore && <Loader />}
           </div>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 };
 
