@@ -4,14 +4,20 @@ import { MiniPlayerStore, setMiniPlayerActive } from "../../store";
 import { expand, mini } from "../../icons";
 import styles from "./index.module.css";
 
-const Player = () => {
+const Player = ({ layout }) => {
   const isActive = MiniPlayerStore.useState((s) => s.isActive);
   const src = MiniPlayerStore.useState((s) => s.src);
   const title = MiniPlayerStore.useState((s) => s.title);
   const subTitle = MiniPlayerStore.useState((s) => s.subTitle);
 
   return (
-    <div className={classNames(styles.wrapper, isActive ? styles.active : "")}>
+    <div
+      className={classNames(
+        styles.wrapper,
+        styles[layout],
+        isActive ? styles.active : ""
+      )}
+    >
       <div className={styles.content}>
         <div className={styles.player}>
           <div className={styles.player_outer}>

@@ -6,9 +6,11 @@ import { UIStore, PopupStore } from "../../store";
 import Header from "./Header";
 import Nav from "./Nav";
 import MiniNav from "./MiniNav";
+import SideNav from "./SideNav";
 import BottomNav from "./BottomNav";
 import Player from "../player";
 import Popup from "../utils/PopupPrimary";
+import RelatedVideos from "../ui/RelatedVideos";
 import styles from "./Layout.module.css";
 
 const Layout = ({ children }) => {
@@ -18,7 +20,7 @@ const Layout = ({ children }) => {
 
   const location = useLocation();
   const [path, setPath] = useState("/");
-  const [type, setType] = useState("type1");
+  const [type, setType] = useState(null);
 
   useEffect(() => {
     setPath(location.pathname);
@@ -27,16 +29,15 @@ const Layout = ({ children }) => {
   useEffect(() => {
     if (path === "/") {
       setType("type1");
-      wrapper.current.classList.add(styles.type1);
-    } else {
+    } else if (path.match("/watch")) {
       setType("type2");
-      wrapper.current.classList.add(styles.type2);
+    } else if (path.match("/search")) {
+      setType("type3");
     }
-    console.log(type);
+    console.log(path);
   }, [path]);
 
   // mobile header scroll effect
-
   const [lastScrollTop, setLastScrollTop] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
   // const [didMount, setDidMount] = useState(false);
@@ -51,6 +52,12 @@ const Layout = ({ children }) => {
       instance.removeEventListener("scroll", setScroll);
     };
   }, []);
+
+  const [sidenavActive, setSidenavActive] = useState(false);
+
+  const handleSidenav = (active) => {
+    setSidenavActive(active);
+  };
 
   // disable scroll but keep scrollbar visible
   const popupOpen = PopupStore.useState((s) => s.open);
@@ -71,7 +78,7 @@ const Layout = ({ children }) => {
   }, [popupOpen]);
 
   useEffect(() => {
-    if (scrollTop > lastScrollTop) {
+    if (type !== "type2" && scrollTop > lastScrollTop) {
       wrapper.current.classList.remove("scroll_up");
       wrapper.current.classList.add("scroll_down");
     } else {
@@ -86,26 +93,44 @@ const Layout = ({ children }) => {
       <Popup />
       <div className={classNames(styles.wrapper, styles[type])} ref={wrapper}>
         <div className={classNames(styles.topbar, "header")}>
-          <Header />
+          <Header
+            layout={type === "type2" ? "layout2" : null}
+            controller={type === "type2" ? () => handleSidenav(true) : null}
+          />
         </div>
 
-        <div className={classNames(styles.sidebar, isMini ? styles.hide : "")}>
-          <Nav />
-        </div>
+        {(type === "type1" || type === "type3") && (
+          <>
+            <div
+              className={classNames(styles.sidebar, isMini ? styles.hide : "")}
+            >
+              <Nav />
+            </div>
+            <div
+              className={classNames(
+                styles.sidebar,
+                styles.mini,
+                isMini ? "" : styles.hide
+              )}
+            >
+              <MiniNav />
+            </div>
+          </>
+        )}
 
-        <div
-          className={classNames(
-            styles.sidebar,
-            styles.mini,
-            isMini ? "" : styles.hide
-          )}
-        >
-          <MiniNav />
-        </div>
-
-        <div className={styles.bottombar}>
-          <BottomNav />
-        </div>
+        {type === "type2" && (
+          <div className={styles.sidebar}>
+            <SideNav
+              active={sidenavActive}
+              controller={() => handleSidenav(false)}
+            />
+          </div>
+        )}
+        {type === "type1" && (
+          <div className={styles.bottombar}>
+            <BottomNav />
+          </div>
+        )}
 
         <div
           className={classNames(styles.container, isMini ? styles.mini : "")}
@@ -114,30 +139,13 @@ const Layout = ({ children }) => {
           <div className={styles.content}>
             <div className={styles.primary}>
               <div className={styles.player}>
-                <Player />
+                <Player layout={type} />
               </div>
               <div className={styles.page}>{children}</div>
             </div>
 
             <div className={styles.secondary}>
-              {/* <div className={styles.secondary_inner}>
-                <h3 className={styles.more_item}>Up next</h3>
-                <div className={styles.related_container}>
-                  {data.videos.map((video, index) => (
-                    <div className={styles.related_item} key={index}>
-                      <VideoCard
-                        {...video}
-                        statistics={data.videoStats}
-                        channelThumbnails={data.channels}
-                      />
-                    </div>
-                  ))}
-
-                  <div ref={ref} className={styles.loader}>
-                    {isLoadingMore && <Loader />}
-                  </div>
-                </div>
-              </div> */}
+              {type === "type2" && <RelatedVideos />}
             </div>
           </div>
         </div>
