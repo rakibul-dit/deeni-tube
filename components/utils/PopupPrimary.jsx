@@ -36,25 +36,25 @@ const Popup = () => {
   const mobilePopupContentRef = useRef(null);
 
   useEffect(() => {
-    const refElem = reference.getBoundingClientRect();
+    const refElem = reference?.getBoundingClientRect();
 
     setPos({
       top:
-        window.innerHeight - refElem.top > popupRef.current.offsetHeight
-          ? refElem.top + 40
+        window.innerHeight - refElem?.top > popupRef.current.offsetHeight
+          ? refElem?.top + 40
           : "auto",
       left:
-        window.innerWidth - refElem.left > popupRef.current.offsetWidth
-          ? refElem.left + 8
+        window.innerWidth - refElem?.left > popupRef.current.offsetWidth
+          ? refElem?.left + 8
           : "auto",
       right:
-        window.innerWidth - refElem.left > popupRef.current.offsetWidth
+        window.innerWidth - refElem?.left > popupRef.current.offsetWidth
           ? "auto"
-          : window.innerWidth - refElem.right - 8,
+          : window.innerWidth - refElem?.right - 8,
       bottom:
-        window.innerHeight - refElem.top > popupRef.current.offsetHeight
+        window.innerHeight - refElem?.top > popupRef.current.offsetHeight
           ? "auto"
-          : window.innerHeight - refElem.bottom + 40,
+          : window.innerHeight - refElem?.bottom + 40,
     });
 
     setIsOpen(open);

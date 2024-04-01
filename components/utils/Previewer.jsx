@@ -46,22 +46,22 @@ const Previewer = () => {
 
   useEffect(() => {
     setIsOpen(false); // reset first
-    const refElem = reference.getBoundingClientRect();
-    const containerElem = container.getBoundingClientRect();
+    const refElem = reference?.getBoundingClientRect();
+    const containerElem = container?.getBoundingClientRect();
 
     setPos({
-      top: refElem.top - 12,
+      top: refElem?.top - 12,
       left:
-        refElem.left - containerElem.left < 40 // should around 12 but 40 for security
-          ? refElem.left - 12
-          : containerElem.right - refElem.right < 40
+        refElem?.left - containerElem?.left < 40 // should around 12 but 40 for security
+          ? refElem?.left - 12
+          : containerElem?.right - refElem?.right < 40
           ? "auto"
-          : refElem.left -
+          : refElem?.left -
             (reference.offsetWidth * (142.29 / 100) - reference.offsetWidth) /
               2,
       right:
-        containerElem.right - refElem.right < 40
-          ? window.innerWidth - refElem.right - 12
+        containerElem?.right - refElem?.right < 40
+          ? window.innerWidth - refElem?.right - 12
           : "auto",
       bottom: "auto",
     });
