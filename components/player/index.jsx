@@ -9,7 +9,7 @@ const Player = ({ layout }) => {
   const src = MiniPlayerStore.useState((s) => s.src);
   const title = MiniPlayerStore.useState((s) => s.title);
   const subTitle = MiniPlayerStore.useState((s) => s.subTitle);
-
+  console.log(isActive);
   return (
     <div
       className={classNames(

@@ -43,3 +43,10 @@ body {
     transition: unset;
   }
 }
+.player-modal.MuiModal-root {
+  bottom: unset;
+}
+.player-modal .MuiModal-backdrop {
+  position: absolute;
+  height: 100%;
+}

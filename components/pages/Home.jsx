@@ -2,7 +2,11 @@ import styles from "./Home.module.css";
 import classNames from "classnames";
 import { UIStore, setPreviewContainer } from "../../store";
 import { youtube, constants } from "../../lib/config";
-import { getAllPlaylists2, getYoutubeVideoListByUrl } from "../../lib/fetch";
+import {
+  getAllPlaylists2,
+  getYoutubeVideoDetailsByUrl,
+  getYoutubeVideoListByUrl,
+} from "../../lib/fetch";
 import { useState, useEffect, useRef } from "react";
 import Layout from "../core/Layout";
 import VideoCard from "../cards/Video";
@@ -10,6 +14,7 @@ import ChipBar from "../ui/ChipBar";
 import Loader from "../utils/Loader";
 import useOnScreen from "../../hooks/useOnScreen";
 import Previewer from "../utils/Previewer";
+import PlayerModal from "./modal/PlayerModal";
 
 const getUrl = (previousPageData, playlistId) => {
   let pageToken = "";
@@ -83,9 +88,37 @@ const Home = () => {
     setPreviewContainer(containerRef.current);
   }, []);
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const [videoDetail, setVideoDetail] = useState({});
+  const [videoId, setVideoId] = useState();
+
+  const handleClick = (id) => {
+    const url = `${youtube.url}/videos?key=${youtube.key}&part=snippet,statistics&id=${id}`;
+    setVideoId(id);
+    openModal();
+    const fetchData = async () => {
+      const res = await getYoutubeVideoDetailsByUrl(url);
+      setVideoDetail(res);
+    };
+    fetchData().catch(console.error);
+  };
+
   return (
     <>
-      <Previewer />
+      {/* <Previewer /> */}
+      <PlayerModal
+        open={modalOpen}
+        closer={handleModalClose}
+        src={videoId}
+        videoDetail={videoDetail}
+      />
 
       <div className={styles.wrapper}>
         <div
@@ -103,6 +136,7 @@ const Home = () => {
             {data.videos.map((video, index) => (
               <div className={styles.item} key={index}>
                 <VideoCard
+                  handleClick={handleClick}
                   {...video}
                   statistics={data.videoStats}
                   channelThumbnails={data.channels}

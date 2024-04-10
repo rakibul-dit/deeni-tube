@@ -33,6 +33,7 @@
   flex: none;
   width: 100%;
   position: relative;
+  cursor: pointer;
 }
 .thumb::before {
   display: block;

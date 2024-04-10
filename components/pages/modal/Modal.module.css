@@ -1,0 +1,96 @@
+.modal {
+  width: 100%;
+  /* position: absolute; */
+  max-width: 1024px;
+  height: 100%;
+  margin: auto;
+}
+.iframe_container {
+  position: relative;
+  width: 100%;
+  max-width: 1024px;
+  padding-top: 56.25%;
+  /* padding-top: 50%; */
+  /* margin-bottom: 1.5rem; */
+  background-color: #000;
+}
+.iframe_container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+}
+.close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.close svg {
+  width: 32px;
+  height: 32px;
+  color: #fff;
+}
+.bigClose {
+  display: none;
+}
+.bigClose svg {
+  position: absolute;
+  top: 20px;
+  right: -40px;
+  width: 32px;
+  height: 32px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.title_area {
+  background-color: #030303;
+  color: #fff;
+  padding: 5px 10px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title_area h2 {
+  font-family: "Roboto", "Arial", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  /* display: box; */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: normal;
+  height: 20px;
+  line-height: 20px;
+  width: 90%;
+}
+.title_area h3 {
+  word-break: break-all;
+  font-family: "Roboto", "Arial", sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  max-height: 18px;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  /* display: box; */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+@media screen and (min-width: 1140px) {
+  .bigClose {
+    display: block;
+  }
+  .close {
+    display: none;
+  }
+}

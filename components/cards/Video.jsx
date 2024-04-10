@@ -2,7 +2,7 @@ import classNames from "classnames";
 import styles from "./Video.module.css";
 import { server } from "../../lib/config";
 import { format } from "../../lib/format";
-import { IonRouterLink, IonIcon } from "@ionic/react";
+import { IonRouterLink, IonIcon, IonButton } from "@ionic/react";
 import { ellipsisVertical } from "../../icons";
 import { useRef, useEffect, useState } from "react";
 import {
@@ -25,6 +25,7 @@ const VideoCard = ({
   channelTitle,
   statistics,
   channelThumbnails,
+  handleClick,
 }) => {
   const open = PopupStore.useState((s) => s.open);
   const reference = PopupStore.useState((s) => s.reference);
@@ -90,10 +91,7 @@ const VideoCard = ({
       <div className={styles.content}>
         <div className={styles.inner}>
           <div className={styles.media}>
-            <IonRouterLink
-              routerLink={`/watch/${id}`} //
-              className={styles.thumb}
-            >
+            <div className={styles.thumb} onClick={() => handleClick(id)}>
               <img
                 src={
                   image
@@ -102,29 +100,23 @@ const VideoCard = ({
                 }
                 alt=""
                 ref={previewRef}
-                onMouseEnter={() => handlePreviewOnHover(true)}
-                onMouseLeave={() => handlePreviewOnHover(false)}
+                // onMouseEnter={() => handlePreviewOnHover(true)}
+                // onMouseLeave={() => handlePreviewOnHover(false)}
               />
-            </IonRouterLink>
+            </div>
 
             <div className={styles.details}>
-              <IonRouterLink
-                routerLink={`/watch/${id}`} //
-                className={styles.avatar}
-              >
+              <div className={styles.avatar} onClick={() => handleClick(id)}>
                 <img
                   src={channelThumbnails ? channelThumbnails[channelId] : ""} //
                   alt=""
                 />
-              </IonRouterLink>
+              </div>
               <div className={styles.meta}>
                 <div className={styles.meta_top}>
-                  <IonRouterLink
-                    routerLink={`/watch/${id}`}
-                    className={styles.title}
-                  >
+                  <div onClick={() => handleClick(id)} className={styles.title}>
                     <h3>{title}</h3>
-                  </IonRouterLink>
+                  </div>
                   <div className={styles.popup_button} ref={popupReference}>
                     <IonIcon
                       icon={ellipsisVertical}
