@@ -12,7 +12,9 @@ import {
   subscriptionOutline,
   library,
   libraryOutline,
+  ellipsisHorizontal,
 } from "../../icons";
+import MenuClickModal from "../pages/modal/MenuClickModal";
 
 const pages = [
   {
@@ -34,10 +36,10 @@ const pages = [
     url: "/subscriptions",
   },
   {
-    title: "Library",
-    icon: library,
-    iconOutline: libraryOutline,
-    url: "/library",
+    title: "More",
+    icon: ellipsisHorizontal,
+    iconOutline: ellipsisHorizontal,
+    url: "/more",
   },
 ];
 
@@ -49,14 +51,24 @@ const BottomNav = () => {
     setPath(location.pathname);
   }, [location]);
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
   return (
     <div className={styles.wrapper}>
       <IonList className={styles.list}>
         {pages.map((p, i) => (
-          <IonRouterLink //
-            routerLink={p.url}
+          <div
+            // routerLink={p.url}
             key={i}
             className={styles.item}
+            onClick={openModal}
           >
             <div className={styles.inner}>
               <IonIcon
@@ -66,9 +78,10 @@ const BottomNav = () => {
               />
               <IonLabel className={styles.label}>{p.title}</IonLabel>
             </div>
-          </IonRouterLink>
+          </div>
         ))}
       </IonList>
+      <MenuClickModal open={modalOpen} closer={handleModalClose} />
     </div>
   );
 };

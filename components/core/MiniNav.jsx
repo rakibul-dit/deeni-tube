@@ -16,6 +16,7 @@ import {
   history,
   historyOutline,
 } from "../../icons";
+import MenuClickModal from "../pages/modal/MenuClickModal";
 
 const pages = [
   {
@@ -58,25 +59,35 @@ const MiniNav = () => {
     setPath(location.pathname);
   }, [location]);
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
   return (
     <div className={styles.wrapper}>
       <IonList className={styles.list}>
         {pages.map((p, i) => (
-          <IonRouterLink //
-            routerLink={p.url}
-            key={i}
-          >
-            <div className={styles.item}>
-              <IonIcon
-                icon={p.url === path ? p.icon : p.iconOutline}
-                slot="start"
-                className={styles.icon}
-              />
-              <IonLabel className={styles.label}>{p.title}</IonLabel>
-            </div>
-          </IonRouterLink>
+          // <IonRouterLink //
+          //   routerLink={p.url}
+          //   key={i}
+          // >
+          <div className={styles.item} key={i} onClick={openModal}>
+            <IonIcon
+              icon={p.url === path ? p.icon : p.iconOutline}
+              slot="start"
+              className={styles.icon}
+            />
+            <IonLabel className={styles.label}>{p.title}</IonLabel>
+          </div>
+          // </IonRouterLink>
         ))}
       </IonList>
+      <MenuClickModal open={modalOpen} closer={handleModalClose} />
     </div>
   );
 };

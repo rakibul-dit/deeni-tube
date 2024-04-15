@@ -7,16 +7,17 @@ import { MiniPlayerStore } from "../../../store";
 import styles from "./Modal.module.css";
 
 export default function PlayerModal({ open, closer, src, videoDetail }) {
-  console.log(src);
   return (
     <Modal
       open={open}
       onClose={closer}
       className="player-modal"
       closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 100,
+      slots={{ backdrop: Backdrop }}
+      slotProps={{
+        backdrop: {
+          timeout: 500,
+        },
       }}
     >
       <Fade in={open} timeout={100} style={{ transitionDelay: "0ms" }}>

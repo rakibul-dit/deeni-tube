@@ -11,6 +11,7 @@
 .item {
   width: 25%;
   max-width: 90px;
+  cursor: pointer;
 }
 .inner {
   width: 100%;
