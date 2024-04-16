@@ -1,7 +1,7 @@
 import * as React from "react";
-import Backdrop from "@mui/material/Backdrop";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
 import CloseIcon from "@mui/icons-material/Close";
 import styles from "./Modal.module.css";
 
@@ -11,11 +11,9 @@ export default function MenuClickModal({ open, closer }) {
       open={open}
       onClose={closer}
       closeAfterTransition
-      slots={{ backdrop: Backdrop }}
-      slotProps={{
-        backdrop: {
-          timeout: 100,
-        },
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 100,
       }}
     >
       <Fade in={open} timeout={100} style={{ transitionDelay: "0ms" }}>
