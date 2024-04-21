@@ -6,12 +6,12 @@
   position: relative;
   z-index: 999999;
 }
-.popup_container.web {
+/* .popup_container.web {
   display: none;
-}
-.popup_container.mobile {
+} */
+/* .popup_container.mobile {
   display: block;
-}
+} */
 
 /* web popup */
 .popup {
@@ -133,12 +133,12 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .popup_container.web {
+  /* .popup_container.web {
     display: block;
-  }
-  .popup_container.mobile {
+  } */
+  /* .popup_container.mobile {
     display: none;
-  }
+  } */
   .item_inner:hover {
     background-color: #e5e5e5;
   }

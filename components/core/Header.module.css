@@ -36,8 +36,9 @@
 .logo {
   margin-left: 0;
 }
-.logo svg {
-  width: 110px;
+.logo img {
+  width: 150px;
+  height: auto;
 }
 .layout2 .logo svg {
   fill: #fff;
@@ -160,7 +161,7 @@
     display: flex;
   }
   .logo {
-    margin-left: 16px;
+    margin-left: 8px;
   }
   .search {
     display: flex;

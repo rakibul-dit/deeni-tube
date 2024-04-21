@@ -17,6 +17,7 @@ import {
   notRecommend,
   report,
 } from "../../icons";
+import MenuClickModal from "../pages/modal/MenuClickModal";
 
 const Popup = () => {
   const open = PopupStore.useState((s) => s.open);
@@ -33,7 +34,7 @@ const Popup = () => {
   const [isOpen, setIsOpen] = useState(open);
 
   const popupRef = useRef(null);
-  const mobilePopupContentRef = useRef(null);
+  // const mobilePopupContentRef = useRef(null);
 
   useEffect(() => {
     const refElem = reference?.getBoundingClientRect();
@@ -62,7 +63,7 @@ const Popup = () => {
 
   useEffect(() => {
     const instanceOfPopup = popupRef.current;
-    const instanceOfMobilePopupContent = mobilePopupContentRef.current;
+    // const instanceOfMobilePopupContent = mobilePopupContentRef.current;
 
     const addClickEventOnBody = () => {
       setPopupOpen(false);
@@ -77,21 +78,29 @@ const Popup = () => {
     };
 
     document.body.addEventListener("click", addClickEventOnBody);
-    instanceOfPopup.addEventListener("click", addClickEventOnPopup);
-    instanceOfMobilePopupContent.addEventListener(
-      "click",
-      addClickEventOnPopup
-    );
+    // instanceOfPopup.addEventListener("click", addClickEventOnPopup);
+    // instanceOfMobilePopupContent.addEventListener(
+    //   "click",
+    //   addClickEventOnPopup
+    // );
 
     return () => {
       document.body.removeEventListener("click", addClickEventOnBody);
-      instanceOfPopup.removeEventListener("click", addClickEventOnPopup);
-      instanceOfMobilePopupContent.removeEventListener(
-        "click",
-        addClickEventOnPopup
-      );
+      // instanceOfPopup.removeEventListener("click", addClickEventOnPopup);
+      // instanceOfMobilePopupContent.removeEventListener(
+      //   "click",
+      //   addClickEventOnPopup
+      // );
     };
   }, []);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+  const openModal = () => {
+    setModalOpen(true);
+  };
 
   return (
     <>
@@ -112,7 +121,7 @@ const Popup = () => {
           <div className={styles.wrapper}>
             <div className={styles.content}>
               <ul className={styles.list}>
-                <li className={styles.item}>
+                <li className={styles.item} onClick={openModal}>
                   <div className={styles.item_inner}>
                     <div className={styles.item_icon}>
                       <IonIcon
@@ -124,7 +133,7 @@ const Popup = () => {
                     <p className={styles.item_label}>Add to queue</p>
                   </div>
                 </li>
-                <li className={styles.item}>
+                <li className={styles.item} onClick={openModal}>
                   <div className={styles.item_inner}>
                     <div className={styles.item_icon}>
                       <IonIcon
@@ -136,7 +145,7 @@ const Popup = () => {
                     <p className={styles.item_label}>Save to Watch later</p>
                   </div>
                 </li>
-                <li className={styles.item}>
+                <li className={styles.item} onClick={openModal}>
                   <div className={styles.item_inner}>
                     <div className={styles.item_icon}>
                       <IonIcon
@@ -148,7 +157,7 @@ const Popup = () => {
                     <p className={styles.item_label}>Save to playlist</p>
                   </div>
                 </li>
-                <li className={styles.item}>
+                <li className={styles.item} onClick={openModal}>
                   <div className={styles.item_inner}>
                     <div className={styles.item_icon}>
                       <IonIcon
@@ -160,7 +169,7 @@ const Popup = () => {
                     <p className={styles.item_label}>Share</p>
                   </div>
                 </li>
-                <li className={styles.item}>
+                <li className={styles.item} onClick={openModal}>
                   <div className={styles.item_separator}></div>
                   <div className={styles.item_inner}>
                     <div className={styles.item_icon}>
@@ -173,7 +182,7 @@ const Popup = () => {
                     <p className={styles.item_label}>Not interested</p>
                   </div>
                 </li>
-                <li className={styles.item}>
+                <li className={styles.item} onClick={openModal}>
                   <div className={styles.item_inner}>
                     <div className={styles.item_icon}>
                       <IonIcon
@@ -187,7 +196,7 @@ const Popup = () => {
                     </p>
                   </div>
                 </li>
-                <li className={styles.item}>
+                <li className={styles.item} onClick={openModal}>
                   <div className={styles.item_inner}>
                     <div className={styles.item_icon}>
                       <IonIcon
@@ -204,8 +213,9 @@ const Popup = () => {
           </div>
         </div>
       </div>
+      <MenuClickModal open={modalOpen} closer={handleModalClose} />
 
-      <div className={classNames(styles.popup_container, styles.mobile)}>
+      {/* <div className={classNames(styles.popup_container, styles.mobile)}>
         <div
           style={{
             display: isOpen ? "block" : "none",
@@ -241,7 +251,7 @@ const Popup = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

@@ -3,7 +3,7 @@ import Backdrop from "@mui/material/Backdrop";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import CloseIcon from "@mui/icons-material/Close";
-import { MiniPlayerStore } from "../../../store";
+// import { MiniPlayerStore } from "../../../store";
 import styles from "./Modal.module.css";
 
 export default function PlayerModal({ open, closer, src, videoDetail }) {
@@ -16,16 +16,16 @@ export default function PlayerModal({ open, closer, src, videoDetail }) {
       slots={{ backdrop: Backdrop }}
       slotProps={{
         backdrop: {
-          timeout: 500,
+          timeout: 300,
         },
       }}
     >
       <Fade in={open} timeout={100} style={{ transitionDelay: "0ms" }}>
         <div className={styles.modal}>
           <div className={styles.iframe_container}>
-            <span className={styles.bigClose} onClick={closer}>
+            {/* <span className={styles.bigClose} onClick={closer}>
               <CloseIcon />
-            </span>
+            </span> */}
             <iframe
               frameBorder="0"
               // allowFullScreen="1"

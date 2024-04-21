@@ -49,10 +49,10 @@
   color: #fff;
 }
 /* close for bigger screen */
-.bigClose {
+/* .bigClose {
   display: none;
-}
-.bigClose svg {
+} */
+/* .bigClose svg {
   position: absolute;
   top: 20px;
   right: -40px;
@@ -60,7 +60,7 @@
   height: 32px;
   color: #fff;
   cursor: pointer;
-}
+} */
 .menuClose {
   position: absolute;
   top: 20px;
@@ -94,7 +94,7 @@
 .title_area {
   background-color: #030303;
   color: #fff;
-  padding: 5px 10px;
+  padding: 10px 10px;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -136,10 +136,10 @@
   font-size: 16px;
 }
 @media screen and (min-width: 1140px) {
-  .bigClose {
+  /* .bigClose {
     display: block;
-  }
-  .close {
+  } */
+  /* .close {
     display: none;
-  }
+  } */
 }

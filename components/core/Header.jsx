@@ -108,7 +108,8 @@ const Header = ({ controller }) => {
           </button>
           <IonRouterLink routerLink="/">
             <div className={styles.logo}>
-              <Logo />
+              {/* <Logo /> */}
+              <img src="/img/logo/Quran-Tube.png" alt="" />
             </div>
           </IonRouterLink>
         </div>

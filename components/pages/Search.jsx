@@ -1,7 +1,7 @@
 import styles from "./Search.module.css";
 import classNames from "classnames";
 import { UIStore } from "../../store";
-import { youtube, constants } from "../../lib/config";
+import { youtube, constants, server } from "../../lib/config";
 import { getYoutubeSearchVideosByUrl } from "../../lib/fetch";
 import { useState, useEffect, useRef } from "react";
 import { useHistory, useLocation } from "react-router-dom";
@@ -21,6 +21,7 @@ import VideoCard from "../cards/Video3";
 // import ChipBar from "../ui/ChipBar";
 import Loader from "../utils/Loader";
 import useOnScreen from "../../hooks/useOnScreen";
+import Meta from "../core/Meta";
 
 const getUrl = (previousPageData, query) => {
   let pageToken = "";
@@ -101,24 +102,33 @@ const Search = () => {
   }, [isVisible, isLoadingMore]);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <div className={styles.content}>
-          {data.videos.map((video, index) => (
-            <div className={styles.item} key={index}>
-              <VideoCard
-                {...video}
-                statistics={data.videoStats}
-                channelThumbnails={data.channels}
-              />
+    <>
+      <Meta
+        title="Search"
+        description="Quran.Tube Search"
+        url={`${server}/search`}
+        image={`${server}/img/logo/default_share.png`}
+        type="website"
+      />
+      <div className={styles.wrapper}>
+        <div className={styles.container}>
+          <div className={styles.content}>
+            {data.videos.map((video, index) => (
+              <div className={styles.item} key={index}>
+                <VideoCard
+                  {...video}
+                  statistics={data.videoStats}
+                  channelThumbnails={data.channels}
+                />
+              </div>
+            ))}
+            <div ref={ref} className={styles.loader}>
+              {isLoadingMore && <Loader />}
             </div>
-          ))}
-          <div ref={ref} className={styles.loader}>
-            {isLoadingMore && <Loader />}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

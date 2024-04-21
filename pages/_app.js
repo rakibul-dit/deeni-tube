@@ -23,6 +23,28 @@ function MyApp({ Component, pageProps }) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, viewport-fit=cover"
         ></meta>
+
+        <link
+          href="/img/favicon/favicon.ico"
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+        />
+        <link
+          href="/img/favicon/favicon-16x16.png"
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+        />
+
+        {/* <link rel="manifest" href="/manifest.webmanifest" /> */}
+        {/* <script
+          async
+          src="https://cdn.jsdelivr.net/npm/pwacompat"
+          crossOrigin="anonymous"
+        ></script> */}
+        {/* Manifest.json */}
+        {/* <link rel="manifest" href="/manifest.json" /> */}
       </Head>
       <Component {...pageProps} />
       {/* <Script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></Script> */}

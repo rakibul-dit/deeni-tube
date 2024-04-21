@@ -79,8 +79,10 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     if (type !== "type2" && scrollTop > lastScrollTop) {
-      wrapper.current.classList.remove("scroll_up");
-      wrapper.current.classList.add("scroll_down");
+      if (scrollTop > 98) {
+        wrapper.current.classList.remove("scroll_up");
+        wrapper.current.classList.add("scroll_down");
+      }
     } else {
       wrapper.current.classList.remove("scroll_down");
       wrapper.current.classList.add("scroll_up");

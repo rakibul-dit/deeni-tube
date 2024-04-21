@@ -1,7 +1,7 @@
 import styles from "./Home.module.css";
 import classNames from "classnames";
 import { UIStore, setPreviewContainer } from "../../store";
-import { youtube, constants } from "../../lib/config";
+import { youtube, constants, server } from "../../lib/config";
 import {
   getAllPlaylists2,
   getYoutubeVideoDetailsByUrl,
@@ -15,6 +15,7 @@ import Loader from "../utils/Loader";
 import useOnScreen from "../../hooks/useOnScreen";
 import Previewer from "../utils/Previewer";
 import PlayerModal from "./modal/PlayerModal";
+import Meta from "../core/Meta";
 
 const getUrl = (previousPageData, playlistId) => {
   let pageToken = "";
@@ -101,17 +102,25 @@ const Home = () => {
 
   const handleClick = (id) => {
     const url = `${youtube.url}/videos?key=${youtube.key}&part=snippet,statistics&id=${id}`;
-    setVideoId(id);
-    openModal();
     const fetchData = async () => {
       const res = await getYoutubeVideoDetailsByUrl(url);
       setVideoDetail(res);
     };
     fetchData().catch(console.error);
+    setVideoId(id);
+    openModal();
   };
 
   return (
     <>
+      <Meta
+        title=""
+        description="Quran.Tube Homepage"
+        url={server}
+        image={`${server}/img/logo/default_share.png`}
+        type="website"
+      />
+
       {/* <Previewer /> */}
       <PlayerModal
         open={modalOpen}
